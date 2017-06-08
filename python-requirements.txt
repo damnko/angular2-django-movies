@@ -1,0 +1,7 @@
+Django
+# in ubuntu/linux you may want to run
+# sudo apt-get install python-dev mysql-server
+requests[security]
+# in ubuntu/linux you may want to run
+# sudo apt-get install libmysqlclient-dev
+mysqlclient
