@@ -82,15 +82,14 @@ def movies_summary(request):
     # get all requested movie ids
     movie_ids = request.GET.get('ids', '').split(',')
 
-    # populate a summary
-    # m = Movie.objects.filter(source_id__in=movie_ids)\
-    #     .annotate(Avg('rating'), Count('comment'))
-
     m = Movie.objects.filter(source_id__in=movie_ids).annotate(
-        Avg('rating__rating'),
-        Count('comment', distinct=True)
-    )
-    print(m[0].comment__count, m[0].rating__rating__avg)
-    print(m[1].comment__count, m[0].rating__rating__avg)
-    print(list(m))
-    print(m)
+        avg_rating=Avg('rating__rating'), # avg on rating column of rating table
+        comment_count=Count('comment', distinct=True)
+    ).values()
+
+    return JsonResponse({
+        'status': 'success',
+        'data': {
+            'movies': list(m)
+        }
+    })
