@@ -1,3 +1,5 @@
+'use strict';
+
 const devConfig = require('./config/webpack/webpack.dev');
 const prodConfig = require('./config/webpack/webpack.prod');
 
