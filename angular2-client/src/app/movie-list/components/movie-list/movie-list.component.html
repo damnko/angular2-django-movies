@@ -1,0 +1,19 @@
+<div fxLayout="row" fxLayoutAlign="center" fxLayoutWrap="wrap" fxLayoutGap="10px">
+  <md-card class="example-card" fxFlex="15"
+    *ngFor="let movie of (topMovies$ | async)?.results">
+    <img md-card-image [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path">
+    <md-card-content>
+      <p>{{ movie.overview }}</p>
+      <ul>
+        <li>Comments: {{ movie.custom_data?.comment_count }}</li>
+        <li>IMDB Rating: {{ movie.vote_average }}</li>
+        <li>Internal rating: {{ movie.custom_data?.avg_rating }} </li>
+      </ul>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button>LIKE</button>
+      <button md-button>SHARE</button>
+    </md-card-actions>
+  </md-card>
+</div>
+<button (click)="testapi()">test api</button>

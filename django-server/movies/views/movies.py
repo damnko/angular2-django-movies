@@ -87,9 +87,14 @@ def movies_summary(request):
         comment_count=Count('comment', distinct=True)
     ).values()
 
+    temp = {}
+    for movie in list(m):
+        print(movie.get('source_id'))
+        temp[movie.get('source_id')] = movie
+
     return JsonResponse({
         'status': 'success',
         'data': {
-            'movies': list(m)
+            'movies': temp
         }
     })
