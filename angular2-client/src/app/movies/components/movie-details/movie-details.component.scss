@@ -1,0 +1,14 @@
+.backdrop-cont {
+  height: 500px;
+  position: relative;
+
+  .backdrop {
+    height: 400px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+  }
+}

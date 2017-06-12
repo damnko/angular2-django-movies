@@ -4,6 +4,7 @@ import { MdToolbarModule } from '@angular/material';
 import { MdCardModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
+import { StarRatingModule } from 'angular-star-rating';
 
 const ANGULAR_MATERIAL_COMPONENTS = [
   MdCardModule,
@@ -13,14 +14,16 @@ const ANGULAR_MATERIAL_COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
-    ...ANGULAR_MATERIAL_COMPONENTS
-    FlexLayoutModule
+    ...ANGULAR_MATERIAL_COMPONENTS,
+    FlexLayoutModule,
+    StarRatingModule
   ],
   exports: [
     CommonModule,
-    ...ANGULAR_MATERIAL_COMPONENTS
+    ...ANGULAR_MATERIAL_COMPONENTS,
     ToolbarComponent,
-    FlexLayoutModule
+    FlexLayoutModule,
+    StarRatingModule
   ],
   declarations: [
     ToolbarComponent

@@ -1,0 +1,25 @@
+<div class="backdrop-cont">
+  <h1>{{ (movie$ | async).original_title }}</h1>
+  <div class="backdrop" [style.background-image]="'url(https://image.tmdb.org/t/p/w1280' + (movie$ | async).backdrop_path + ')'"></div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="10">
+    <img [src]="'https://image.tmdb.org/t/p/w154' + (movie$ | async).poster_path" [alt]="(movie$ | async).original_title">
+  </div>
+  <div fxFlex="50">
+    {{ (movie$ | async).overview }}
+  </div>
+  <div fxFlex="10">
+    <span *ngIf="(movieInternalDetails$ | async)?.data.rating; else noVotes; let rating">
+      Rating: {{ rating.avg }} based on {{ rating.count }} votes
+    </span>
+    <ng-template #noVotes>
+      No votes yet, be the first
+      <star-rating-comp [starType]="'svg'" [rating]="2.63"></star-rating-comp>
+    </ng-template>
+    #votes and details
+  </div>
+</div>
+<div fxFlexLayout="row" fxLayoutAlign="center">
+  #comments
+</div>

@@ -1,6 +1,6 @@
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { MovieListModule } from './movie-list/movie-list.module';
+import { MoviesModule } from './movies/movies.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule  } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app.routing';
     AppRoutingModule,
     // TODO: check why this is not working and eventually move to SharedModule
     // BrowserAnimationsModule
-    MovieListModule,
+    MoviesModule,
     SharedModule,
     CoreModule
   ],

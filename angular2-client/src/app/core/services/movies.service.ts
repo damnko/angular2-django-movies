@@ -35,6 +35,18 @@ export class MoviesService {
       }).do(console.log);
   }
 
+  getMovieDetails(id: string): Observable<any> {
+    const url = `${config.themoviedb.endpoint}/movie/${id}?api_key=${config.themoviedb.apiKey}`;
+
+    return this.http.get(url)
+      .map(res => res.json());
+  }
+
+  getMovieInternalDetails(id: string): Observable<any> {
+    return this.http.get(`/api/movies/movie/${id}/`)
+      .map((res: any) => res.json());
+  }
+
   private getMoviesSummary(movieIds: string[], tmdbRes: any): Observable<{tmdb: any, api: any}> {
     return Observable.combineLatest(
       Observable.of(tmdbRes),

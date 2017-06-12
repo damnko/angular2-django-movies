@@ -187,6 +187,12 @@ angular-router-loader@^0.6.0:
   dependencies:
     loader-utils "^1.0.2"
 
+angular-star-rating@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/angular-star-rating/-/angular-star-rating-3.0.0.tgz#2536a7012f47e7fec72999f95f55a48cf33f208e"
+  dependencies:
+    css-star-rating "^1.1.3"
+
 angular2-template-loader@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/angular2-template-loader/-/angular2-template-loader-0.6.2.tgz#c0d44e90fff0fac95e8b23f043acda7fd1c51d7c"
@@ -1156,6 +1162,10 @@ css-selector-tokenizer@^0.7.0:
     cssesc "^0.1.0"
     fastparse "^1.1.1"
     regexpu-core "^1.0.0"
+
+css-star-rating@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/css-star-rating/-/css-star-rating-1.1.3.tgz#d3b8da2c90c69456a579fa3954d6d724d14db734"
 
 css-what@2.1:
   version "2.1.0"

@@ -1,8 +1,15 @@
+<div fxLayout="row" fxLayoutAlign="center"*ngIf="error">
+  <div fxFlex="80">
+    {{ error }}
+  </div>
+</div>
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutWrap="wrap" fxLayoutGap="10px">
   <md-card class="example-card" fxFlex="15"
-    *ngFor="let movie of (topMovies$ | async)?.results">
+    *ngFor="let movie of (topMovies$ | async)?.results"
+    (click)="getMovieDetails(movie)">
     <img md-card-image [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path">
     <md-card-content>
+      <span *ngIf="movie.detailsLoading">DETAILS ARE LOADING</span>
       <p>{{ movie.overview }}</p>
       <ul>
         <li>Comments: {{ movie.custom_data?.comment_count }}</li>
