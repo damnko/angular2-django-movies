@@ -46,6 +46,7 @@ def movie_details(request, movie_id):
         return JsonResponse({
             'status': 'fail',
             'data': {
+                'code': 'not-found',
                 'message': 'The movie with ID %s does not exist' % movie_id
             }
         }, status=404)
@@ -87,14 +88,14 @@ def movies_summary(request):
         comment_count=Count('comment', distinct=True)
     ).values()
 
-    temp = {}
+    movies = {}
     for movie in list(m):
         print(movie.get('source_id'))
-        temp[movie.get('source_id')] = movie
+        movies[movie.get('source_id')] = movie
 
     return JsonResponse({
         'status': 'success',
         'data': {
-            'movies': temp
+            'movies': movies
         }
     })

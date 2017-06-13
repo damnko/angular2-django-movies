@@ -5,7 +5,7 @@ from django.core.validators import MinLengthValidator
 # Create your models here.
 class Movie(models.Model):
     source_id = models.CharField(max_length=100, primary_key=True)
-    title = models.CharField(max_length=200, validators=[MinLengthValidator(1)])
+    title = models.CharField(max_length=200)
 
     def __str__(self):
         return 'ID: ' + self.source_id
@@ -16,8 +16,6 @@ class Movie(models.Model):
         if Movie.objects.filter(source_id = self.source_id).exists():
             raise ValueError('The movie with ID %s is already present' % self.source_id)
         else:
-            # run the validators
-            self.full_clean()
             # save
             super(Movie, self).save(*args, **kwargs)
 

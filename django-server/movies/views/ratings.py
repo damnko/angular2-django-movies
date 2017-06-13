@@ -1,22 +1,26 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Rating, Movie
+import json
 
-@csrf_exempt # temporary decorator to remove csrf, just to test with postman
+# @csrf_exempt # temporary decorator to remove csrf, just to test with postman
 def rate(request):
 
     # if POST, save or update rating
     if request.method == 'POST':
-        movie_id = request.POST.get('id', '')
-        rating = request.POST.get('rating','')
-        username = request.POST.get('username','')
+        body = json.loads(request.body)
+        movie_id = body['id']
+        # rating = request.POST.get('rating', 0)
+        rating = int(body['rating'])
+        username = body['username']
 
-        # get the movie object with id movie_id
-        m = Movie.objects.get(source_id=movie_id)
+        # get the movie object with id movie_id, or create it
+        m, created = Movie.objects.get_or_create(source_id=movie_id, defaults={'title': ''})
         # save or update rating
         try:
             r, created = Rating.objects.update_or_create(username=username, movie=m, defaults={'rating': rating})
         except Exception as e:
+            print(e)
             return JsonResponse({
                 'status': 'fail',
                 'data': {
@@ -54,3 +58,20 @@ def rate(request):
         return JsonResponse({
             'status': 'success'
         })
+
+def getRating(request, movie_id):
+    if request.method != 'POST':
+        pass
+
+    body = json.loads(request.body)
+    username = body['username']
+
+    # get rating
+    r = Rating.objects.filter(movie_id = movie_id, username = username).first()
+
+    return JsonResponse({
+        'result': 'success',
+        'data': {
+            'rating': r.rating if r else None
+        }
+    })
