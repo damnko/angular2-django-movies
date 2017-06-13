@@ -15,8 +15,12 @@
     </span>
     <ng-template #noVotes>
       No votes yet, be the first
-      <star-rating-comp [starType]="'svg'" [rating]="2.63"></star-rating-comp>
     </ng-template>
+    <star-rating-comp
+      [starType]="'svg'"
+      [rating]="previousUserRating || 0"
+      (onClick)="rateMovie($event)"></star-rating-comp>
+    <span *ngIf="previousUserRating > 0" (click)="removeRating()">remove rating</span>
     #votes and details
   </div>
 </div>

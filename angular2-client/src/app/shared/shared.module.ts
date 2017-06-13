@@ -1,14 +1,14 @@
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NgModule } from '@angular/core';
-import { MdToolbarModule } from '@angular/material';
-import { MdCardModule } from '@angular/material';
+import { MdToolbarModule, MdSnackBarModule, MdCardModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { StarRatingModule } from 'angular-star-rating';
 
 const ANGULAR_MATERIAL_COMPONENTS = [
   MdCardModule,
-  MdToolbarModule
+  MdToolbarModule,
+  MdSnackBarModule
 ];
 
 @NgModule({

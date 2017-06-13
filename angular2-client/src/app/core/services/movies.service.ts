@@ -1,5 +1,7 @@
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { UserService } from './user.service';
 import { config } from './../../../config';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
@@ -7,7 +9,9 @@ import { Observable } from 'rxjs/Rx';
 export class MoviesService {
 
   constructor(
-    private http: Http
+    private http: Http,
+    private us: UserService,
+    private cookies: CookieService
   ) { }
 
   getTopMovies(): any {
@@ -47,6 +51,27 @@ export class MoviesService {
       .map((res: any) => res.json());
   }
 
+  rateMovie(id: string, rating: number): Observable<any> {
+    return this.postRequest(`/api/movies/rate`, { id, rating });
+  }
+
+  getMovieRating(id: string): Observable<any> {
+    const url = `/api/movies/movie/${id}/rating/`;
+    return this.postRequest(url, {});
+  }
+
+  removeRating(id: string): Observable<any> {
+    const params = [
+      `u=${this.us.getOrSetUsername()}`,
+      `m_id=${id}`
+    ].join('&');
+
+    const options = this.createHeaders();
+
+    return this.http.delete(`/api/movies/rate?${params}`, options)
+      .map(res => res.json());
+  }
+
   private getMoviesSummary(movieIds: string[], tmdbRes: any): Observable<{tmdb: any, api: any}> {
     return Observable.combineLatest(
       Observable.of(tmdbRes),
@@ -58,6 +83,24 @@ export class MoviesService {
         };
       }
     );
+  }
+
+  private createHeaders(): RequestOptions {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'X-CSRFToken': this.cookies.get('csrftoken')
+    });
+    const options = new RequestOptions({ headers });
+    return options;
+  }
+
+  private postRequest(url: string, data: any): Observable<any> {
+    const username = this.us.getOrSetUsername();
+
+    const options = this.createHeaders();
+
+    return this.http.post(url, Object.assign({ username }, data), options)
+      .map(res => res.json());
   }
 
 }

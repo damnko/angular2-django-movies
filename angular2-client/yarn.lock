@@ -193,6 +193,10 @@ angular-star-rating@^3.0.0:
   dependencies:
     css-star-rating "^1.1.3"
 
+angular2-cookie@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/angular2-cookie/-/angular2-cookie-1.2.6.tgz#8fa845531e777adb042fe2f339c0040f6ddbf09d"
+
 angular2-template-loader@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/angular2-template-loader/-/angular2-template-loader-0.6.2.tgz#c0d44e90fff0fac95e8b23f043acda7fd1c51d7c"
