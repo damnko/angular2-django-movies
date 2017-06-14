@@ -14,6 +14,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { StarRatingModule } from 'angular-star-rating';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const ANGULAR_MATERIAL_COMPONENTS = [
   MdCardModule,
@@ -29,9 +30,6 @@ const ANGULAR_MATERIAL_COMPONENTS = [
     CommonModule,
     ...ANGULAR_MATERIAL_COMPONENTS,
     FlexLayoutModule,
-    StarRatingModule,
-    FormsModule,
-    ReactiveFormsModule
   ],
   exports: [
     CommonModule,
@@ -42,7 +40,8 @@ const ANGULAR_MATERIAL_COMPONENTS = [
     FormsModule,
     ReactiveFormsModule,
     GenresToTextPipe,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    NgxPaginationModule
   ],
   declarations: [
     ToolbarComponent,

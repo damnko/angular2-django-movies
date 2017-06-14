@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ngx-pagination": "^3.0.0"
+  }
+}

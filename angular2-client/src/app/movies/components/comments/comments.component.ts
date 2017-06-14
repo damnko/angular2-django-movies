@@ -16,10 +16,15 @@ import * as _ from 'lodash';
 export class CommentsComponent implements OnInit {
   @Input() movieId: string;
   @Input() width: number;
-  comments: any[];
+  commentsData: {
+    comments: any[],
+    currentPage: number,
+    totalPages: number,
+    itemsPerPage: number
+  };
   commentForm: FormGroup;
   postingComment: boolean = false;
-  newComments$ = new BehaviorSubject<any>([]);
+  commentsPageNr$ = new BehaviorSubject<number>(1);
 
   constructor(
     private ms: MoviesService,
@@ -34,14 +39,24 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit() {
     console.log('init', this.movieId, this.us.getOrSetUsername());
-    Observable.combineLatest(
-      this.ms.getComments(this.movieId).map(res => res.data.comments),
-      this.newComments$.scan((comments, comment) => [...comments, ...comment], []),
-      (comments, newComments) => [...comments, ...newComments]
-    ).subscribe(comments => {
-      console.log('comments are', comments);
-      this.comments = comments;
-    });
+
+    this.commentsPageNr$
+      .flatMap(page => this.ms.getComments(this.movieId, page))
+      .map(res => res.data)
+      .map(comments => {
+        return {
+          comments: comments.comments,
+          currentPage: comments.current_page,
+          totalPages: comments.total_pages,
+          itemsPerPage: comments.items_per_page
+        };
+      }).subscribe(commentsObj => {
+        this.commentsData = commentsObj;
+      });
+  }
+
+  changePage(ev: number): void {
+    this.commentsPageNr$.next(ev);
   }
 
   postComent(): void {
@@ -56,11 +71,8 @@ export class CommentsComponent implements OnInit {
         this.postingComment = false;
         this.commentForm.reset();
 
-        this.newComments$.next([{
-          username: this.us.getOrSetUsername(),
-          body: commentBody,
-          id: res.data.id
-        }]);
+        // reload comments from page 1
+        this.commentsPageNr$.next(1);
       });
   }
 
@@ -68,8 +80,8 @@ export class CommentsComponent implements OnInit {
     this.ms.removeComment(id)
       .subscribe(
         res => {
-          const i = _.findIndex(this.comments, comment => comment.id === id);
-          this.comments.splice(i, 1);
+          // reload current comments page
+          this.commentsPageNr$.next(this.commentsData.currentPage);
         },
         err => this.helpers.showMessage('The comment could not be removed')
       );

@@ -93,6 +93,7 @@
     "font-awesome": "^4.7.0",
     "http-server": "^0.10.0",
     "lodash": "^4.17.4",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "ngx-pagination": "^3.0.0"
   }
 }

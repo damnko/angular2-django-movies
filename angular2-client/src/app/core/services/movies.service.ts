@@ -83,9 +83,10 @@ export class MoviesService {
       .map(res => res.json());
   }
 
-  getComments(id: string): Observable<any> {
+  getComments(id: string, page: number): Observable<any> {
     const params = [
-      `u=${this.us.getOrSetUsername()}`
+      `u=${this.us.getOrSetUsername()}`,
+      `p=${page}`
     ].join('&');
 
     return this.http.get(`/api/movies/movie/${id}/comments/?${params}`)

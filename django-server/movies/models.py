@@ -37,6 +37,7 @@ class Comment(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     username = models.CharField(max_length=100, validators=[MinLengthValidator(1)])
     body = models.TextField()
+    date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.body

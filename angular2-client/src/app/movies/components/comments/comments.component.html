@@ -2,22 +2,31 @@
   <div [fxFlex]="width" class="content comments">
     <md-list>
       <h3 md-subheader>Comments</h3>
-      <span *ngIf="!comments || comments.length === 0" class="no-comments">
+      <span *ngIf="!commentsData || commentsData?.comments.length === 0" class="no-comments">
         <strong>No comments yet</strong>, be the first to drop a line!
       </span>
-      <md-list-item *ngFor="let comment of comments">
+      <md-list-item class="comment-item"
+        *ngFor="let comment of commentsData?.comments.reverse() | paginate: {
+              itemsPerPage: commentsData?.itemsPerPage,
+              currentPage: commentsData?.currentPage,
+              totalItems: commentsData?.itemsPerPage * commentsData?.totalPages
+            }">
         <md-icon md-list-icon>
           <i class="fa fa-user-circle-o" aria-hidden="true"></i>
         </md-icon>
         <h4 md-line>
-          {{comment.username}}
-          <span *ngIf="comment.username === us.getOrSetUsername()" (click)="removeComment(comment.id)">
-            <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+          {{ comment.username }}
+          <span class="comment-datetime"><i class="fa fa-clock-o" aria-hidden="true"></i>{{ comment.date | date:'medium' }}</span>
+          <span *ngIf="comment.username === us.getOrSetUsername()" (click)="removeComment(comment.id)" class="remove-comment">
+            <i class="fa fa-times-circle-o" aria-hidden="true" title="Remove comment"></i>
           </span>
         </h4>
         <p md-line>{{comment.body}}</p>
       </md-list-item>
     </md-list>
+    <pagination-controls class="my-pagination"
+      *ngIf="commentsData?.totalPages > 1"
+      (pageChange)="changePage($event)"></pagination-controls>
   </div>
 </div>
 <form fxFlexLayout="row" fxLayoutAlign="center" novalidate

@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Comment, Movie
+import math
 import json
 
 @csrf_exempt # temporary decorator to remove csrf, just to test with postman
@@ -67,13 +68,27 @@ def get_comments(request, movie_id):
     if request.method != 'GET':
         pass
 
-    username = request.GET.get('u', '')
+    items_per_page = 5
+    page = int(request.GET.get('p', ''))
 
-    c = Comment.objects.filter(movie_id=movie_id).values()
+    c = Comment.objects.filter(movie_id=movie_id).order_by('-date')
+    total_pages = math.ceil(c.count() / items_per_page)
+
+    page = page-1 if page <=total_pages else total_pages-1
+    limits = {
+        'from': items_per_page * page,
+        'to': (items_per_page * page) + items_per_page
+    }
+
+    comments = c[limits['from']: limits['to']].values()
+
     return JsonResponse({
         'status': 'success',
         'data': {
-            'comments': list(c)
+            'comments': list(comments),
+            'total_pages': total_pages,
+            'current_page': page+1,
+            'items_per_page': items_per_page
         }
     })
 
