@@ -1,5 +1,6 @@
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { GenresToTextPipe } from './pipes/genres-to-text.pipe';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NgModule } from '@angular/core';
 import {
   MdToolbarModule,
@@ -40,11 +41,13 @@ const ANGULAR_MATERIAL_COMPONENTS = [
     StarRatingModule,
     FormsModule,
     ReactiveFormsModule,
-    GenresToTextPipe
+    GenresToTextPipe,
+    LoadingSpinnerComponent
   ],
   declarations: [
     ToolbarComponent,
-    GenresToTextPipe
+    GenresToTextPipe,
+    LoadingSpinnerComponent
   ],
   providers: [],
 })

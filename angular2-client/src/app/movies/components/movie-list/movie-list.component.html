@@ -12,11 +12,11 @@
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutWrap="wrap" fxLayoutGap="10px">
   <md-card fxFlex="15" class="movie-card"
     *ngFor="let movie of (topMovies$ | async)?.results">
+    <loading-spinner *ngIf="movie.detailsLoading" [customStyles]="spinnerStyles"></loading-spinner>
     <div class="img-wrap">
       <img md-card-image [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" (click)="getMovieDetails(movie)">
     </div>
     <md-card-content>
-      <span *ngIf="movie.detailsLoading">DETAILS ARE LOADING</span>
       <h3>{{ movie.title }}</h3>
       <p>{{ movie.overview }}</p>
       <div fxLayout="row" class="specs">

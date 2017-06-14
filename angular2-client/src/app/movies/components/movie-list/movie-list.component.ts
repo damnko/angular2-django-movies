@@ -15,6 +15,7 @@ export class MovieListComponent implements OnInit {
   public topMovies$: Observable<any>;
   public error: string;
   public moviesSinceDate: Date | any;
+  public spinnerStyles: any;
 
   constructor(
     private movies: MoviesService,
@@ -26,6 +27,11 @@ export class MovieListComponent implements OnInit {
     this.topMovies$ = this.movies.getTopMovies();
     this.checkForErrors();
     this.moviesSinceDate = this.movies.moviesFromDate();
+
+    // custom styles to fit loader to card container
+    this.spinnerStyles = {
+      margin: '-24px -24px 16px -24px'
+    };
   }
 
   testapi(): void {
