@@ -12,7 +12,7 @@ import { IStarRatingOnClickEvent } from 'angular-star-rating/src/star-rating-str
 
 export class MovieDetailsComponent implements OnInit {
   movie$: Observable<any>;
-  movieInternalDetails$: Observable<any>;
+  movieInternalDetails: any;
   movieId: string;
   previousUserRating: number = 0;
 
@@ -40,7 +40,10 @@ export class MovieDetailsComponent implements OnInit {
   rateMovie(ev: IStarRatingOnClickEvent): void {
     this.ms.rateMovie(this.movieId, ev.rating)
       .subscribe(
-        res => this.previousUserRating = ev.rating,
+        res => {
+          this.previousUserRating = ev.rating;
+          this.getInternalDetails(this.movieId);
+        },
         err => this.helpers.showMessage(err.data.message)
       );
   }
@@ -48,12 +51,17 @@ export class MovieDetailsComponent implements OnInit {
   removeRating(): void {
     this.ms.removeRating(this.movieId)
       .subscribe(
-        res => this.previousUserRating = 0,
+        res => {
+          this.previousUserRating = 0;
+          this.getInternalDetails(this.movieId);
+        },
         err => this.helpers.showMessage(err.data.message)
       );
   }
 
   private getInternalDetails(id: string): void {
-    this.movieInternalDetails$ = this.ms.getMovieInternalDetails(id);
+    this.ms.getMovieInternalDetails(id)
+      .map(res => res.data)
+      .subscribe(res => {console.log(res); this.movieInternalDetails = res; });
   }
 }

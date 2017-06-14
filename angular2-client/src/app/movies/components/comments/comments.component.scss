@@ -1,0 +1,15 @@
+.fw {
+  width: 100%;
+}
+.content {
+  background-color: #f1f1f1;
+  padding: 1em;
+}
+.comments {
+  border-top: 1px solid #e4e4e4;
+  margin-top: 2em;
+
+  .no-comments {
+    color: #193048;
+  }
+}

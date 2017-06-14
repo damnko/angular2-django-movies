@@ -1,3 +1,4 @@
+import { CommentsComponent } from './components/comments/comments.component';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
 import { MovieDetailResolver } from './services/movie-detail-resolver.service';
 import { SharedModule } from './../shared/shared.module';
@@ -12,7 +13,8 @@ import { MovieListComponent } from './components/movie-list/movie-list.component
   ],
   declarations: [
     MovieListComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    CommentsComponent
   ],
   providers: [
     MovieDetailResolver

@@ -1,29 +1,49 @@
 <div class="backdrop-cont">
-  <h1>{{ (movie$ | async).original_title }}</h1>
-  <div class="backdrop" [style.background-image]="'url(https://image.tmdb.org/t/p/w1280' + (movie$ | async).backdrop_path + ')'"></div>
+  <div class="backdrop" [style.background-image]="'url(https://image.tmdb.org/t/p/w1280' + (movie$ | async).backdrop_path + ')'">
+    <h1>{{ (movie$ | async).original_title }}</h1>
+  </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="center">
-  <div fxFlex="10">
+<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px" class="movie-content">
+  <div fxFlex="10" class="left-content">
     <img [src]="'https://image.tmdb.org/t/p/w154' + (movie$ | async).poster_path" [alt]="(movie$ | async).original_title">
   </div>
-  <div fxFlex="50">
+  <div fxFlex="50" class="main">
     {{ (movie$ | async).overview }}
+    <comments [movieId]="movieId" width="100"></comments>
   </div>
-  <div fxFlex="10">
-    <span *ngIf="(movieInternalDetails$ | async)?.data.rating; else noVotes; let rating">
-      Rating: {{ rating.avg }} based on {{ rating.count }} votes
-    </span>
+  <div fxFlex="10" class="specs">
+    <div *ngIf="movieInternalDetails?.rating.count > 0; else noVotes" class="current-rating">
+      <span class="rating-avg">
+        <i class="fa fa-star" aria-hidden="true"></i> Rating {{ movieInternalDetails?.rating.avg }}/5
+      </span>
+      Based on {{ movieInternalDetails?.rating.count }} votes
+    </div>
     <ng-template #noVotes>
-      No votes yet, be the first
+      <div class="no-votes">
+        No votes yet
+      </div>
     </ng-template>
     <star-rating-comp
       [starType]="'svg'"
       [rating]="previousUserRating || 0"
       (onClick)="rateMovie($event)"></star-rating-comp>
-    <span *ngIf="previousUserRating > 0" (click)="removeRating()">remove rating</span>
-    #votes and details
+    <button md-button *ngIf="previousUserRating > 0" (click)="removeRating()">Remove rating</button>
+    <div>
+      <ul>
+        <li>
+          <h3>Genres</h3>
+          {{ (movie$ | async).genres | myGenresToText }}
+        </li>
+        <li>
+          <h3>Rel. date</h3>
+          {{ (movie$ | async).release_date | date }}
+        </li>
+        <li>
+          <h3>Runtime</h3>
+          {{ (movie$ | async).runtime }} mins
+        </li>
+      </ul>
+      <a href="http://www.imdb.com/title/{{ (movie$ | async).imdb_id }}/" target="_blank">See on IMDB</a>
+    </div>
   </div>
-</div>
-<div fxFlexLayout="row" fxLayoutAlign="center">
-  #comments
 </div>

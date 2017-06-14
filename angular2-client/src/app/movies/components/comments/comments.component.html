@@ -1,0 +1,35 @@
+<div fxFlexLayout="row" fxLayoutAlign="center">
+  <div [fxFlex]="width" class="content comments">
+    <md-list>
+      <h3 md-subheader>Comments</h3>
+      <span *ngIf="!comments || comments.length === 0" class="no-comments">
+        <strong>No comments yet</strong>, be the first to drop a line!
+      </span>
+      <md-list-item *ngFor="let comment of comments">
+        <md-icon md-list-icon>
+          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+        </md-icon>
+        <h4 md-line>
+          {{comment.username}}
+          <span *ngIf="comment.username === us.getOrSetUsername()" (click)="removeComment(comment.id)">
+            <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+          </span>
+        </h4>
+        <p md-line>{{comment.body}}</p>
+      </md-list-item>
+    </md-list>
+  </div>
+</div>
+<form fxFlexLayout="row" fxLayoutAlign="center" novalidate
+  [formGroup]="commentForm">
+  <div [fxFlex]="width*0.8" class="content">
+    <md-input-container class="fw">
+      <textarea mdInput placeholder="Post your comment" formControlName="comment"></textarea>
+    </md-input-container>
+  </div>
+  <div [fxFlex]="width*0.2" class="content">
+    <button md-mini-fab (click)="postComent()" [disabled]="!commentForm.valid || postingComment">
+      <i class="fa fa-paper-plane" aria-hidden="true"></i>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,46 @@
+.title {
+  text-align: center;
+  color: #fff;
+
+  h1 {
+    margin-bottom: 0;
+  }
+  h3 {
+    margin-top: 0;
+  }
+}
+
+.movie-card {
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 1em;
+  text-align: center;
+
+  .img-wrap {
+    cursor: pointer;
+    // border "hack" just to make the shadow appear over the image
+    border: 2px solid transparent;
+    -webkit-box-shadow: inset 0px 0px 0px 4px rgba(255,255,255,1);
+    -moz-box-shadow: inset 0px 0px 0px 4px rgba(255,255,255,1);
+    box-shadow: inset 0px 0px 0px 4px rgba(255,255,255,1);
+  }
+
+  .specs {
+    >div {
+      text-align: center;
+      color: #9c6346;
+
+      &:nth-child(2) {
+        $border-style: 1px solid #e4e4e4;
+        border-left: $border-style;
+        border-right: $border-style;
+      }
+    }
+  }
+
+  button.mat-raised-button {
+    border: 2px solid #9c6346;
+    border-radius: 5px;
+    color: #9c6346;
+    font-weight: bold;
+  }
+}

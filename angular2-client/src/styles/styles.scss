@@ -1,1 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~font-awesome/css/font-awesome.css';
+
+@import './variables.scss';
+
+body {
+  background-color: #193048;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+.fw {
+  width: 100%;
+}

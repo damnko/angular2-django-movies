@@ -1,25 +1,41 @@
-<div fxLayout="row" fxLayoutAlign="center"*ngIf="error">
+<div fxLayout="row" fxLayoutAlign="center" *ngIf="error">
   <div fxFlex="80">
     {{ error }}
   </div>
 </div>
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="70" class="title">
+    <h1>Top 20 Movies in Theaters</h1>
+    <h3>since {{ moviesSinceDate | date }}</h3>
+  </div>
+</div>
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutWrap="wrap" fxLayoutGap="10px">
-  <md-card class="example-card" fxFlex="15"
-    *ngFor="let movie of (topMovies$ | async)?.results"
-    (click)="getMovieDetails(movie)">
-    <img md-card-image [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path">
+  <md-card fxFlex="15" class="movie-card"
+    *ngFor="let movie of (topMovies$ | async)?.results">
+    <div class="img-wrap">
+      <img md-card-image [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" (click)="getMovieDetails(movie)">
+    </div>
     <md-card-content>
       <span *ngIf="movie.detailsLoading">DETAILS ARE LOADING</span>
+      <h3>{{ movie.title }}</h3>
       <p>{{ movie.overview }}</p>
-      <ul>
-        <li>Comments: {{ movie.custom_data?.comment_count }}</li>
-        <li>IMDB Rating: {{ movie.vote_average }}</li>
-        <li>Internal rating: {{ movie.custom_data?.avg_rating }} </li>
-      </ul>
+      <div fxLayout="row" class="specs">
+        <div fxFlex="33.333">
+          <i class="fa fa-2x fa-comments" aria-hidden="true"></i><br>
+          {{ movie.custom_data?.comment_count || 0 }}
+        </div>
+        <div fxFlex="33.333">
+          <i class="fa fa-2x fa-imdb" aria-hidden="true"></i><br>
+          {{ movie.vote_average }}
+        </div>
+        <div fxFlex="33.333">
+          <i class="fa fa-2x fa-star" aria-hidden="true"></i><br>
+          {{ movie.custom_data?.avg_rating || 0 }}
+        </div>
+      </div>
     </md-card-content>
     <md-card-actions>
-      <button md-button>LIKE</button>
-      <button md-button>SHARE</button>
+      <button md-raised-button class="fw" (click)="getMovieDetails(movie)">DETAILS</button>
     </md-card-actions>
   </md-card>
 </div>

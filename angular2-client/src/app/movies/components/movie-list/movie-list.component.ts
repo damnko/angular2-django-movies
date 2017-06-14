@@ -3,15 +3,18 @@ import { MoviesService } from './../../../core/services/movies.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'movie-list',
-  templateUrl: 'movie-list.component.html'
+  templateUrl: './movie-list.component.html',
+  styleUrls: ['./movie-list.component.scss']
 })
 
 export class MovieListComponent implements OnInit {
   public topMovies$: Observable<any>;
   public error: string;
+  public moviesSinceDate: Date | any;
 
   constructor(
     private movies: MoviesService,
@@ -22,6 +25,7 @@ export class MovieListComponent implements OnInit {
   ngOnInit() {
     this.topMovies$ = this.movies.getTopMovies();
     this.checkForErrors();
+    this.moviesSinceDate = this.movies.moviesFromDate();
   }
 
   testapi(): void {

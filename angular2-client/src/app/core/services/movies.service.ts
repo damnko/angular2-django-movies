@@ -4,6 +4,7 @@ import { config } from './../../../config';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import * as moment from 'moment';
 
 @Injectable()
 export class MoviesService {
@@ -14,12 +15,22 @@ export class MoviesService {
     private cookies: CookieService
   ) { }
 
+  moviesFromDate(format?: string): Date | string {
+    const daysAgo = 30;
+    const date = moment().subtract(daysAgo, 'days');
+
+    if (format) {
+      return date.format(format);
+    }
+    return date.toDate();
+  }
+
   getTopMovies(): any {
     const baseUrl = `${config.themoviedb.endpoint}/discover/movie?`;
     const params = [
       `api_key=${config.themoviedb.apiKey}`,
       `include_adult=false`,
-      `release_date.gte=2017-05-01`,
+      `release_date.gte=${this.moviesFromDate('YYYY-MM-DD')}`,
       `sort_by=popularity.desc`
     ].join('&');
 
@@ -69,6 +80,29 @@ export class MoviesService {
     const options = this.createHeaders();
 
     return this.http.delete(`/api/movies/rate?${params}`, options)
+      .map(res => res.json());
+  }
+
+  getComments(id: string): Observable<any> {
+    const params = [
+      `u=${this.us.getOrSetUsername()}`
+    ].join('&');
+
+    return this.http.get(`/api/movies/movie/${id}/comments/?${params}`)
+      .map(res => res.json());
+  }
+
+  postComment(id: string, body: string): Observable<any> {
+    return this.postRequest(`/api/movies/comment`, { id, body });
+  }
+
+  removeComment(id: string): Observable<any> {
+    const params = [
+      `u=${this.us.getOrSetUsername()}`,
+      `id=${id}`
+    ].join('&');
+
+    return this.http.delete(`/api/movies/comment?${params}`)
       .map(res => res.json());
   }
 
