@@ -1,16 +1,22 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Comment, Movie
+import json
 
 @csrf_exempt # temporary decorator to remove csrf, just to test with postman
 def comment(request):
     if request.method == 'POST':
-        movie_id = request.POST.get('id', '')
-        username = request.POST.get('username', '')
-        body = request.POST.get('body', '')
+        # movie_id = request.POST.get('id', '')
+        # username = request.POST.get('username', '')
+        # body = request.POST.get('body', '')
+
+        post_data = json.loads(request.body)
+        movie_id = post_data['id']
+        username = post_data['username']
+        body = post_data['body']
 
         # get movie object
-        m = Movie.objects.get(source_id = movie_id)
+        m, created = Movie.objects.get_or_create(source_id = movie_id, defaults={'title': ''})
         # comment
         c = Comment(movie = m, username = username, body = body)
         try:
@@ -24,7 +30,10 @@ def comment(request):
             }, status=500)
 
         return JsonResponse({
-            'status': 'success'
+            'status': 'success',
+            'data': {
+                'id': c.id
+            }
         })
     elif request.method == 'DELETE':
         id = request.GET.get('id', '')
@@ -48,12 +57,25 @@ def comment(request):
                 'data': {
                     'message': 'Error while deleting comment'
                 }
-            })
+            }, status=500)
 
         return JsonResponse({
             'status': 'success'
         })
 
+def get_comments(request, movie_id):
+    if request.method != 'GET':
+        pass
+
+    username = request.GET.get('u', '')
+
+    c = Comment.objects.filter(movie_id=movie_id).values()
+    return JsonResponse({
+        'status': 'success',
+        'data': {
+            'comments': list(c)
+        }
+    })
 
 @csrf_exempt # temporary decorator to remove csrf, just to test with postman
 def update_comment(request, id):
