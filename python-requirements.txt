@@ -5,3 +5,5 @@ requests[security]
 # in ubuntu/linux you may want to run
 # sudo apt-get install libmysqlclient-dev
 mysqlclient
+# only needed for authentication
+PyJWT
