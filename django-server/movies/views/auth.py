@@ -33,11 +33,12 @@ def register(request):
 
     post_data = json.loads(request.body)
     username = post_data['username']
+    email = post_data['email']
     password = post_data['password']
 
     # register user
     try:
-        u = User.objects.create_user(username=username, password=password)
+        u = User.objects.create_user(username=username, password=password, email=email)
         u.save()
     except:
         return JsonResponse({

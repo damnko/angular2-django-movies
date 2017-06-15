@@ -25,7 +25,10 @@ auth_routes = [
 ]
 
 user_data_routes = [
-    url(r'^protected/$', views.get_user_data, name='protected route')
+    url(r'^user/get-data/$', views.get_user_data, name='get user data'),
+    url(r'^user/update/$', views.update_data, name='update user data'),
+    url(r'^user/update-password/$', views.update_password, name='update user password'),
+    url(r'^user/delete/$', views.delete_account, name='delete user account')
 ]
 
 urlpatterns = movies_routes + rate_routes + auth_routes + user_data_routes
