@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  styles: [`
-    .home-wrap {
-    }
-  `],
+  styleUrls: ['./user-home.component.scss'],
   template: `
     <div fxLayout="row" fxLayoutAlign="center" class="home-wrap">
       <div fxFlex="30">

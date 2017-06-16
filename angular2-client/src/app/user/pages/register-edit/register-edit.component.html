@@ -1,3 +1,8 @@
+<div fxLayout="row" *ngIf="isEdit">
+  <div fxFlex="100">
+    <h1>Update user details</h1>
+  </div>
+</div>
 <div fxLayout="row" fxLayoutAlign="center">
   <div fxFlex="100" class="cont">
     <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
@@ -15,6 +20,9 @@
       <div fxLayout="row">
         <div fxFlex="70">
           <div formGroupName="passwords">
+            <md-input-container class="fw block" *ngIf="isEdit">
+              <input mdInput placeholder="Old password" formControlName="oldPassword">
+            </md-input-container>
             <md-input-container class="fw block">
               <input mdInput placeholder="Password" formControlName="password">
               <md-error *ngIf="registerForm.controls.passwords.errors?.passwordMismatch && registerForm.controls.passwords.controls.password.touched && registerForm.controls.passwords.controls.passwordConfirm.touched">
@@ -43,7 +51,7 @@
       </div>
       <div fxLayout="row" fxLayoutAlign="center">
         <div fxFlex="50">
-          <button md-raised-button type="submit" [disabled]="!registerForm.valid">Register</button>
+          <button md-raised-button type="submit" [disabled]="!registerForm.valid">{{ actionName }}</button>
         </div>
       </div>
     </form>
