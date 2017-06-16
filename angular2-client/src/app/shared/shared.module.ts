@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { GenresToTextPipe } from './pipes/genres-to-text.pipe';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -27,11 +28,13 @@ const ANGULAR_MATERIAL_COMPONENTS = [
 
 @NgModule({
   imports: [
+    RouterModule,
     CommonModule,
     ...ANGULAR_MATERIAL_COMPONENTS,
     FlexLayoutModule,
   ],
   exports: [
+    RouterModule,
     CommonModule,
     ...ANGULAR_MATERIAL_COMPONENTS,
     ToolbarComponent,

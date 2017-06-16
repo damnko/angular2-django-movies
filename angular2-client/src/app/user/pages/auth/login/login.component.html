@@ -1,0 +1,20 @@
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="100" class="cont">
+    <div class="wrongCredentials" *ngIf="wrongCredentials">
+      <i class="fa fa-exclamation" aria-hidden="true"></i> Username or password are wrong
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
+      <md-input-container class="fw block">
+        <input mdInput placeholder="Username" formControlName="username">
+      </md-input-container>
+      <md-input-container class="fw block">
+        <input mdInput placeholder="Password" formControlName="password">
+      </md-input-container>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="50">
+          <button md-raised-button type="submit" [disabled]="!loginForm.valid">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

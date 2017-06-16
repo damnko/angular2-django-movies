@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
       <md-toolbar color="primary">
         <a routerLink="/">Angular2 Django | Movies</a>
         <span class="menu-space-filler"></span>
+        <a routerLink="user/register/">Register</a>
         <a href="#">
           <i class="fa fa-2x fa-github" aria-hidden="true"></i>
         </a>

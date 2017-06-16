@@ -1,0 +1,40 @@
+.wrap {
+  margin-top: 5em;
+
+  // div:first-child a {
+  //   border-right: 1px solid red;
+  // }
+
+  a {
+    display: block;
+    text-align: center;
+    // background-color: #3d444c;
+    color: #8a97a5;
+    font-size: 1.7em;
+    font-weight: bold;
+    text-decoration: none;
+    padding: .5em;
+    border-bottom: 1px solid #193048;
+
+    &.active {
+      // background-color: #345475;
+      border-bottom: 10px solid #fff;
+      color: #fff;
+    }
+  }
+}
+
+
+/deep/ .cont {
+  text-align: center;
+  background-color: #fff;
+  padding: 1.5em;
+}
+/deep/ button[type="submit"] {
+  width: 100%;
+  background-color: #ded344;
+  border: 2px solid #ffffff;
+  color: #193048;
+  font-weight: bold;
+  text-transform: uppercase;
+}
