@@ -7,8 +7,7 @@ from movies.utils import create_login_token
 
 @csrf_exempt
 def username_exists(request):
-    post_data = json.loads(request.body)
-    username = post_data['username']
+    username = request.GET.get('u', '')
 
     try:
         u = User.objects.get(username=username)
@@ -32,6 +31,8 @@ def register(request):
         pass
 
     post_data = json.loads(request.body)
+    print(post_data)
+    # TODO: check if email is valid and eventually other fields validation
     username = post_data['username']
     email = post_data['email']
     password = post_data['password']
@@ -49,7 +50,7 @@ def register(request):
         }, status=500)
 
     # login user
-    return login(request, True, {'username': username})
+    return login(request, True, {'username': username, 'email': email})
 
 @csrf_exempt
 def login(request, redirect_after_registration=False, registration_data=None):
@@ -64,7 +65,7 @@ def login(request, redirect_after_registration=False, registration_data=None):
         u = authenticate(username=username, password=password)
         # if authenticated, create and return token
         if u is not None:
-            token = create_login_token({'username': username})
+            token = create_login_token({'username': u.username, 'email': u.email})
         else:
             return JsonResponse({
                 'status': 'fail'

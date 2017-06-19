@@ -12,7 +12,11 @@ def create_login_token(data):
         'exp': expiration
     }
 
-def get_token_data(request):
+def get_token(request):
     token = request.META['HTTP_AUTHORIZATION']
+    return token
+
+def get_token_data(request):
+    token = get_token(request)
     token = jwt.decode(token, settings.JWT_SECRET)
     return token

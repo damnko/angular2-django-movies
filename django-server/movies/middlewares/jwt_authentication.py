@@ -1,6 +1,7 @@
 from django.core.exceptions import PermissionDenied
 import jwt
 from django.conf import settings
+from movies import utils
 
 # since I am using the middleware on a per-view basis I need to define the process_request | process_response
 # methods and not the __init__ | __call__ ones
@@ -9,21 +10,23 @@ from django.conf import settings
 
 class JwtAuthentication(object):
     def process_request(self, request):
-        # print('middleware executed')
-        if 'HTTP_AUTHORIZATION' in request.META:
-            token = request.META['HTTP_AUTHORIZATION']
+        print('middleware executed')
+        token = utils.get_token(request)
+        if token:
+            print('token is', token)
             try:
                 payload = jwt.decode(token, settings.JWT_SECRET)
             except jwt.ExpiredSignatureError:
-                # print('token exprired')
+                print('token exprired')
                 raise PermissionDenied
-            except:
-                # print('token not valid')
+            except Exception as e:
+                print('token not valid', e)
                 raise PermissionDenied
-            # print('ok access GRANTED', payload)
+            print('ok access GRANTED', payload)
             # print(payload['exp'])
             return None
         else:
+            print('no http_auth header')
             raise PermissionDenied
 
 
