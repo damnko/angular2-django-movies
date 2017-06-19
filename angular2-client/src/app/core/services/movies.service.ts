@@ -1,4 +1,4 @@
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { HelpersService } from './helpers.service';
 import { UserService } from './user.service';
 import { config } from './../../../config';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -12,7 +12,7 @@ export class MoviesService {
   constructor(
     private http: Http,
     private us: UserService,
-    private cookies: CookieService
+    private hs: HelpersService
   ) { }
 
   moviesFromDate(format?: string): Date | string {
@@ -77,7 +77,7 @@ export class MoviesService {
       `m_id=${id}`
     ].join('&');
 
-    const options = this.createHeaders();
+    const options = this.hs.createHeaders();
 
     return this.http.delete(`/api/movies/rate?${params}`, options)
       .map(res => res.json());
@@ -120,19 +120,10 @@ export class MoviesService {
     );
   }
 
-  private createHeaders(): RequestOptions {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'X-CSRFToken': this.cookies.get('csrftoken')
-    });
-    const options = new RequestOptions({ headers });
-    return options;
-  }
-
   private postRequest(url: string, data: any): Observable<any> {
     const username = this.us.getOrSetUsername();
 
-    const options = this.createHeaders();
+    const options = this.hs.createHeaders();
 
     return this.http.post(url, Object.assign({ username }, data), options)
       .map(res => res.json());

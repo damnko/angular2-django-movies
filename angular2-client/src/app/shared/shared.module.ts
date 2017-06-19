@@ -9,7 +9,8 @@ import {
   MdCardModule,
   MdListModule,
   MdInputModule,
-  MdButtonModule
+  MdButtonModule,
+  MdMenuModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
@@ -23,7 +24,8 @@ const ANGULAR_MATERIAL_COMPONENTS = [
   MdSnackBarModule,
   MdListModule,
   MdInputModule,
-  MdButtonModule
+  MdButtonModule,
+  MdMenuModule
 ];
 
 @NgModule({

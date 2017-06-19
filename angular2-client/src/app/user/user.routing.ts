@@ -1,18 +1,21 @@
+import { NonAuthGuard } from './../core/services/non-auth-guard.service';
+import { AuthGuard } from './../core/services/auth-guard.service';
+import { EditComponent } from './pages/edit/edit.component';
 import { AuthHomeComponent } from './pages/auth-home/auth-home.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
-import { RegisterEditComponent } from './pages/register-edit/register-edit.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: '', component: UserHomeComponent, children: [
-    { path: '', component: AuthHomeComponent, children: [
+    { path: '', component: AuthHomeComponent, canActivateChild: [NonAuthGuard], children: [
       { path: '', redirectTo: 'register' },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterEditComponent }
+      { path: 'register', component: RegisterComponent }
     ]},
-    { path: 'edit', component: RegisterEditComponent, data: { edit: true } }
+    { path: 'edit', component: EditComponent, canActivate: [AuthGuard]}
   ]}
 ];
 

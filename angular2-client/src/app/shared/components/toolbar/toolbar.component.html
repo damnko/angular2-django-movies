@@ -1,0 +1,28 @@
+<div fxLayout="row">
+  <div fxFlex="100">
+    <md-toolbar color="primary">
+      <a routerLink="/">Angular2 Django | Movies</a>
+      <span class="menu-space-filler"></span>
+      <span *ngIf="us.user$ | async; else notAuth">
+        Hello <button md-button [mdMenuTriggerFor]="menu">{{ (us.user$ | async).username }} <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+        <md-menu #menu="mdMenu">
+          <button md-menu-item (click)="goToEditProfile()">
+            <md-icon><i class="fa fa-pencil-square-o" aria-hidden="true"></i></md-icon>
+            <span>Update profile</span>
+          </button>
+          <button md-menu-item (click)="logout($event)">
+            <md-icon><i class="fa fa-sign-out" aria-hidden="true"></i></md-icon>
+            <span>Logout</span>
+          </button>
+        </md-menu>
+      </span>
+      <ng-template #notAuth>
+        <a routerLink="user/register/">Register</a>
+        <a routerLink="user/login/">Login</a>
+      </ng-template>
+      <a href="#">
+        <i class="fa fa-2x fa-github" aria-hidden="true"></i>
+      </a>
+    </md-toolbar>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div fxLayout="row">
+  <div fxFlex="100">
+    <h1>Update user details</h1>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="100" class="cont">
+    <div *ngIf="updateProfileForm.errors?.formError" class="alert error">
+      <strong>There was an error</strong> during form submission
+    </div>
+    <div *ngIf="success?.profile" class="alert success">
+      User profile was <strong>updated succesfully</strong>
+    </div>
+    <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()" novalidate>
+      <md-input-container class="fw block">
+        <input mdInput placeholder="Username" formControlName="username">
+      </md-input-container>
+      <md-input-container class="fw block">
+        <input mdInput placeholder="Email" formControlName="email">
+        <md-error *ngIf="updateProfileForm.controls.email.errors?.emailInvalid">Email is not valid</md-error>
+      </md-input-container>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="50">
+          <button md-raised-button type="submit" [disabled]="!updateProfileForm.valid || formLoading">
+            <i *ngIf="updateProfileForm.pending" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+            Update profile
+          </button>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="passwordForm.errors?.formError" class="alert error">
+      <strong>There was an error</strong> during form submission
+    </div>
+    <div *ngIf="passwordForm.errors?.wrongPassword" class="alert error">
+      The old password you provided <strong>is wrong</strong>
+    </div>
+    <div *ngIf="success?.password" class="alert success">
+      Password was <strong>updated succesfully</strong>
+    </div>
+    <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()" novalidate>
+      <password-form [isEdit]="true" [sourceForm]="passwordForm"></password-form>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="50">
+          <button md-raised-button type="submit" [disabled]="!passwordForm.valid || formLoading">
+            <i *ngIf="formLoading" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+            Update password
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

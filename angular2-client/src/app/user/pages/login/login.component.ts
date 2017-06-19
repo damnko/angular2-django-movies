@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { UserService } from './../../../core/services/user.service';
 import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +13,9 @@ export class LoginComponent {
   wrongCredentials: boolean = false;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private us: UserService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -21,5 +25,19 @@ export class LoginComponent {
 
   submitForm(): void {
     console.log(this.loginForm);
+    const formData = {
+      username: this.loginForm.value.username,
+      password: this.loginForm.value.password,
+    };
+    this.us.login(formData)
+      .first()
+      .subscribe(
+        res => {
+          console.log('ok login fatto');
+          this.us.setUserData();
+          this.router.navigate(['/']);
+        },
+        err => console.error('error', err)
+      );
   }
 }

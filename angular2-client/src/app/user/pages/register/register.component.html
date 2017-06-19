@@ -1,0 +1,34 @@
+<div fxLayout="row" *ngIf="isEdit">
+  <div fxFlex="100">
+    <h1>Update user details</h1>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxFlex="100" class="cont">
+    <div *ngIf="formError" class="alert error">
+      <strong>There was an error</strong> during form submission
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
+      <md-input-container class="fw block">
+        <md-icon class="input-icon loading" *ngIf="registerForm.controls.username.pending"><i class="fa fa-circle-o-notch fa-spin"></i></md-icon>
+        <md-icon class="input-icon valid" *ngIf="registerForm.controls.username.valid"><i class="fa fa-check" aria-hidden="true"></i></md-icon>
+        <md-icon class="input-icon invalid" *ngIf="registerForm.controls.username.errors?.isNotUnique"><i class="fa fa-times" aria-hidden="true"></i></md-icon>
+        <input mdInput placeholder="Username" formControlName="username">
+        <md-error *ngIf="registerForm.controls.username.errors?.isNotUnique">This username is already taken</md-error>
+      </md-input-container>
+      <md-input-container class="fw block">
+        <input mdInput placeholder="Email" formControlName="email">
+        <md-error *ngIf="registerForm.controls.email.errors?.emailInvalid">Email is not valid</md-error>
+      </md-input-container>
+      <password-form [sourceForm]="registerForm"></password-form>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="50">
+          <button md-raised-button type="submit" [disabled]="!registerForm.valid || formLoading">
+            <i *ngIf="formLoading" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+            Register
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

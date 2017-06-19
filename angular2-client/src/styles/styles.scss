@@ -21,3 +21,17 @@ body {
 .red {
   background-color: red !important;
 }
+
+.alert {
+  padding: .5em;
+  border-radius: .5em;
+  color: #fff;
+  margin-bottom: .7em;
+
+  &.error {
+    background-color: #ef6464;
+  }
+  &.success {
+    background-color: #63a95f;
+  }
+}

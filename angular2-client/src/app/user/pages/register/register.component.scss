@@ -1,0 +1,14 @@
+.input-icon {
+  position: absolute;
+  right: 0;
+
+  &.loading {
+    color: #a5a5a5;
+  }
+  &.valid {
+    color: #0a7d3a;
+  }
+  &.invalid {
+    color: #a90c0c;
+  }
+}
