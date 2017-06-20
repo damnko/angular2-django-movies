@@ -1,11 +1,12 @@
 from django.utils.decorators import decorator_from_middleware
 from movies.middlewares.jwt_authentication import JwtAuthentication
-from movies.utils import get_token_data, create_login_token
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 import json
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
+
+from movies.utils import get_token_data, create_login_token
+
 
 @decorator_from_middleware(JwtAuthentication)
 def get_user_data(request):
@@ -27,7 +28,6 @@ def get_user_data(request):
         'data': u
     })
 
-# @csrf_exempt
 @decorator_from_middleware(JwtAuthentication)
 def update_data(request):
     # only the email can be updated here
@@ -57,7 +57,6 @@ def update_data(request):
     res.set_cookie('token', value=token['token'], expires=token['exp'])
     return res
 
-@csrf_exempt
 def update_password(request):
     token = get_token_data(request)
     username = token['username']
@@ -88,7 +87,6 @@ def update_password(request):
             'status': 'fail'
         }, status=401)
 
-@csrf_exempt
 def delete_account(request):
     if request.method != 'DELETE':
         pass

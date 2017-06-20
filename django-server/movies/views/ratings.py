@@ -1,18 +1,18 @@
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from ..models import Rating, Movie
 import json
-from movies.utils import get_token_data
 
-# @csrf_exempt # temporary decorator to remove csrf, just to test with postman
+from movies.utils import get_token_data
+from ..models import Rating, Movie
+
+
 def rate(request):
 
     # if POST, save or update rating
     if request.method == 'POST':
         body = json.loads(request.body)
         movie_id = body['id']
-        # rating = request.POST.get('rating', 0)
         rating = int(body['rating'])
+
         try:
             username = body['username']
         except KeyError:

@@ -10,23 +10,17 @@ from movies import utils
 
 class JwtAuthentication(object):
     def process_request(self, request):
-        print('middleware executed')
         token = utils.get_token(request)
         if token:
-            print('token is', token)
             try:
                 payload = jwt.decode(token, settings.JWT_SECRET)
             except jwt.ExpiredSignatureError:
-                print('token exprired')
                 raise PermissionDenied
             except Exception as e:
-                print('token not valid', e)
                 raise PermissionDenied
-            print('ok access GRANTED', payload)
-            # print(payload['exp'])
+            # permission granted
             return None
         else:
-            print('no http_auth header')
             raise PermissionDenied
 
 

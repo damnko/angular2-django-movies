@@ -1,10 +1,10 @@
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import json
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from movies.utils import create_login_token
 from django.middleware.csrf import get_token
+import json
+
+from movies.utils import create_login_token
 
 def send_csrf(request):
     # just by doing this it will send csrf token back
@@ -13,7 +13,6 @@ def send_csrf(request):
         'status': 'success'
     })
 
-@csrf_exempt
 def username_exists(request):
     username = request.GET.get('u', '')
 
@@ -33,13 +32,11 @@ def username_exists(request):
         }
     })
 
-@csrf_exempt
 def register(request):
     if request.method != 'POST':
         pass
 
     post_data = json.loads(request.body)
-    print(post_data)
     # TODO: check if email is valid and eventually other fields validation
     username = post_data['username']
     email = post_data['email']
@@ -60,7 +57,6 @@ def register(request):
     # login user
     return login(request, True, {'username': username, 'email': email})
 
-@csrf_exempt
 def login(request, redirect_after_registration=False, registration_data=None):
     if redirect_after_registration:
         token = create_login_token(registration_data)
@@ -79,7 +75,6 @@ def login(request, redirect_after_registration=False, registration_data=None):
                 'status': 'fail'
             }, status=401)
 
-    # print('csfr token is', get_token(request))
     res = JsonResponse({
         'status': 'success'
     })

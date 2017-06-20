@@ -1,11 +1,8 @@
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg, Count, Func
-import math
 from ..models import Movie, Rating, Comment
 
 
-@csrf_exempt # temporary decorator to remove csrf, just to test with postman
 def new_movie(request):
     if request.method != 'POST':
         pass
@@ -35,7 +32,6 @@ def new_movie(request):
 
 
 def movie_details(request, movie_id):
-    print('movie ID is %s' % movie_id)
     if request.method != 'GET':
         pass
 
@@ -93,7 +89,6 @@ def movies_summary(request):
 
     movies = {}
     for movie in list(m):
-        print(movie.get('source_id'))
         movies[movie.get('source_id')] = movie
 
     return JsonResponse({

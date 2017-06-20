@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
-import jwt
 from django.conf import settings
+import jwt
 
 
 def create_login_token(data):

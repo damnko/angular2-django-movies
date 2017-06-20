@@ -1,20 +1,17 @@
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from ..models import Comment, Movie
 import math
 import json
+
+from ..models import Comment, Movie
 from movies.utils import get_token_data
 
-@csrf_exempt # temporary decorator to remove csrf, just to test with postman
+# @csrf_exempt # temporary decorator to remove csrf, just to test with postman
 def comment(request):
     if request.method == 'POST':
-        # movie_id = request.POST.get('id', '')
-        # username = request.POST.get('username', '')
-        # body = request.POST.get('body', '')
-
         post_data = json.loads(request.body)
         movie_id = post_data['id']
         body = post_data['body']
+
         try:
             username = post_data['username']
         except KeyError:
@@ -73,7 +70,7 @@ def get_comments(request, movie_id):
     if request.method != 'GET':
         pass
 
-    items_per_page = 5
+    items_per_page = 7
     page = int(request.GET.get('p', ''))
 
     c = Comment.objects.filter(movie_id=movie_id).order_by('-date')
@@ -97,7 +94,7 @@ def get_comments(request, movie_id):
         }
     })
 
-@csrf_exempt # temporary decorator to remove csrf, just to test with postman
+# not currently used
 def update_comment(request, id):
     if request.method != 'POST':
         pass
