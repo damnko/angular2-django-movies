@@ -1,25 +1,21 @@
+@import '../../../../styles/variables.scss';
+
 .wrap {
   margin-top: 5em;
-
-  // div:first-child a {
-  //   border-right: 1px solid red;
-  // }
 
   a {
     display: block;
     text-align: center;
-    // background-color: #3d444c;
-    color: #8a97a5;
+    color: map-get($colors, light-tint);
     font-size: 1.7em;
     font-weight: bold;
     text-decoration: none;
     padding: .5em;
-    border-bottom: 1px solid #193048;
+    border-bottom: 1px solid map-get($colors, dark);
 
     &.active {
-      // background-color: #345475;
-      border-bottom: 10px solid #fff;
-      color: #fff;
+      border-bottom: 10px solid map-get($colors, text-on-dark);
+      color: map-get($colors, text-on-dark);
     }
   }
 }

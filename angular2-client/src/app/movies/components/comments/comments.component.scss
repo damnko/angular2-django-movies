@@ -1,16 +1,18 @@
+@import '../../../../styles/variables.scss';
+
 .fw {
   width: 100%;
 }
 .content {
-  background-color: #f1f1f1;
+  background-color: map-get($colors, light-);
   padding: 1em;
 }
 .comments {
-  border-top: 1px solid #e4e4e4;
+  border-top: 1px solid darken(map-get($colors, light-), 10%);
   margin-top: 2em;
 
   .comment-item {
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid map-get($colors, text-on-dark);
 
     &:last-child {
       border-bottom: none;
@@ -18,7 +20,7 @@
   }
 
   .comment-datetime {
-    color: #888888;
+    color: darken(map-get($colors, light-), 30%);
     font-size: .8em;
 
     i {
@@ -30,11 +32,11 @@
   .remove-comment {
     cursor: pointer;
     margin-left: 2em;
-    color: #b16666;
+    color: map-get($colors, error);
   }
 
   .no-comments {
-    color: #193048;
+    color: map-get($colors, dark);
   }
 
   /deep/ .my-pagination {

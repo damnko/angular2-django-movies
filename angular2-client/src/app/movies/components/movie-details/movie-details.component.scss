@@ -1,3 +1,5 @@
+@import '../../../../styles/variables.scss';
+
 .backdrop-cont {
   height: 400px;
   position: relative;
@@ -13,7 +15,7 @@
 
     h1 {
       margin-top: 2em;
-      color: #fff;
+      color: map-get($colors, text-on-dark);
       text-align: center;
       text-shadow: 0px 0px 9px rgba(0, 0, 0, 0.95);
       font-size: 3em;
@@ -31,33 +33,43 @@
 
   .main {
     padding: 1em;
-    background-color: #fff;
+    background-color: map-get($colors, text-on-dark);
   }
+
+
 
   .specs {
     text-align: center;
-    background-color: #131a24;
-    color: #fff;
+    background-color: darken(map-get($colors, dark) , 5%);
+    color: map-get($colors, text-on-dark);
 
-    .current-rating {
-      color: #b1bac7;
-      margin-bottom: 1.5em;
-
-      .rating-avg {
-        display: block;
-        background-color: #174961;
-        padding: .5em;
-        color: #fff;
-        font-size: 1.3em;
-      }
+    /deep/ .star-rating .star {
+      cursor: pointer !important;
     }
 
-    .no-votes {
-      background-color: #174961;
-      padding: 1em;
-      text-transform: uppercase;
-      font-weight: bold;
-      border-bottom: 1px solid #516a75;
+    .rating {
+      background-color: lighten(map-get($colors, dark), 10%);
+      border-bottom: 1px solid lighten(map-get($colors, dark), 25%);
+      margin-bottom: 1.5em;
+
+      &.current-rating {
+        color: map-get($colors, light-tint);
+        padding-bottom: .5em;
+
+        .rating-avg {
+          display: block;
+          padding: .5em;
+          padding-bottom: 0;
+          color: map-get($colors, text-on-dark);
+          font-size: 1.3em;
+        }
+      }
+
+      &.no-votes {
+        padding: 1em;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
     }
 
     ul {
@@ -78,15 +90,15 @@
     a {
       display: inline-block;
       padding: .25em;
-      border: 1px solid rgba(255, 255, 255, 0.47);
+      border: 1px solid rgba(map-get($colors, text-on-dark), .47);
       border-radius: 5px;
-      color: #fff;
+      color: map-get($colors, text-on-dark);
       text-decoration: none;
       margin-bottom: 1em;
 
       &:hover {
-        background-color: #fff;
-        color: #174961;
+        background-color: map-get($colors, text-on-dark);
+        color: map-get($colors, dark);
       }
     }
   }

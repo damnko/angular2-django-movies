@@ -1,14 +1,16 @@
+@import '../../../../styles/variables.scss';
+
 .input-icon {
   position: absolute;
   right: 0;
 
   &.loading {
-    color: #a5a5a5;
+    color: map-get($colors, light-tint);
   }
   &.valid {
-    color: #0a7d3a;
+    color: map-get($colors, success);
   }
   &.invalid {
-    color: #a90c0c;
+    color: map-get($colors, error);
   }
 }

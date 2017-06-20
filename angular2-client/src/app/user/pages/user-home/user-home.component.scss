@@ -1,13 +1,15 @@
+@import '../../../../styles/variables.scss';
+
 /deep/ .cont {
   text-align: center;
-  background-color: #fff;
+  background-color: map-get($colors, text-on-dark);
   padding: 1.5em;
 }
 /deep/ button[type="submit"] {
   width: 100%;
-  background-color: #ded344;
-  border: 2px solid #ffffff;
-  color: #193048;
+  background-color: map-get($colors, vivid);
+  border: 2px solid map-get($colors, text-on-dark);
+  color: map-get($colors, dark);
   font-weight: bold;
   text-transform: uppercase;
 }

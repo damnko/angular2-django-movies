@@ -1,6 +1,8 @@
+@import '../../../../styles/variables.scss';
+
 .title {
   text-align: center;
-  color: #fff;
+  color: map-get($colors, text-on-dark);
 
   h1 {
     margin-bottom: 0;
@@ -19,15 +21,15 @@
     cursor: pointer;
     // border "hack" just to make the shadow appear over the image
     border: 2px solid transparent;
-    -webkit-box-shadow: inset 0px 0px 0px 4px rgba(255,255,255,1);
-    -moz-box-shadow: inset 0px 0px 0px 4px rgba(255,255,255,1);
-    box-shadow: inset 0px 0px 0px 4px rgba(255,255,255,1);
+    -webkit-box-shadow: inset 0px 0px 0px 4px rgba(#fff, 1);
+    -moz-box-shadow: inset 0px 0px 0px 4px rgba(#fff, 1);
+    box-shadow: inset 0px 0px 0px 4px rgba(#fff, 1);
   }
 
   .specs {
     >div {
       text-align: center;
-      color: #9c6346;
+      color: map-get($colors, complementary);
 
       &:nth-child(2) {
         $border-style: 1px solid #e4e4e4;
@@ -38,9 +40,9 @@
   }
 
   button.mat-raised-button {
-    border: 2px solid #9c6346;
+    border: 2px solid map-get($colors, complementary);
     border-radius: 5px;
-    color: #9c6346;
+    color: map-get($colors, complementary);
     font-weight: bold;
   }
 }

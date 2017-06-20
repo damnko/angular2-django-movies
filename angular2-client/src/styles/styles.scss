@@ -5,7 +5,7 @@
 @import './variables.scss';
 
 body {
-  background-color: #193048;
+  background-color: map-get($colors, dark);
   margin: 0;
   font-family: 'Lato', sans-serif;
 }
@@ -18,21 +18,17 @@ body {
   display: block;
 }
 
-.red {
-  background-color: red !important;
-}
-
 .alert {
   padding: .5em;
   border-radius: .5em;
-  color: #fff;
+  color: map-get($colors, text-on-dark);
   margin-bottom: .7em;
 
   &.error {
-    background-color: #ef6464;
+    background-color: map-get($colors, error);
   }
   &.success {
-    background-color: #63a95f;
+    background-color: map-get($colors, success);
   }
 
   ul {

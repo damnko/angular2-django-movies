@@ -12,18 +12,18 @@
     <comments [movieId]="movieId" width="100"></comments>
   </div>
   <div fxFlex="10" class="specs">
-    <div *ngIf="movieInternalDetails?.rating.count > 0; else noVotes" class="current-rating">
+    <div *ngIf="movieInternalDetails?.rating.count > 0; else noVotes" class="rating current-rating">
       <span class="rating-avg">
         <i class="fa fa-star" aria-hidden="true"></i> Rating {{ movieInternalDetails?.rating.avg }}/5
       </span>
       Based on {{ movieInternalDetails?.rating.count }} votes
     </div>
     <ng-template #noVotes>
-      <div class="no-votes">
+      <div class="rating no-votes">
         No votes yet
       </div>
     </ng-template>
-    <star-rating-comp
+    <star-rating-comp class="star-rating"
       [starType]="'svg'"
       [rating]="previousUserRating || 0"
       (onClick)="rateMovie($event)"></star-rating-comp>

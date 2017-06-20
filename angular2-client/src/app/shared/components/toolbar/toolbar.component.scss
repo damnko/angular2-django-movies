@@ -1,26 +1,26 @@
-// @import '../../../styles/variables.scss';
+@import '../../../../styles/variables.scss';
 
 .menu-space-filler {
   flex: 1 1 auto;
 }
 
 .mat-toolbar {
-  background-color: #2c445d;
+  background-color: map-get($colors, dark-);
 
   a {
     text-decoration: none;
-    color: #fff;
+    color: map-get($colors, text-on-dark);
     cursor: pointer;
 
     &.auth-link {
-      border: 2px solid #7c8896;
+      border: 2px solid map-get($colors, light-tint);
       border-radius: 5px;
       padding: .5em;
       margin-right: 1em;
       font-size: .8em;
 
       &:hover {
-        background-color: #7c8896;
+        background-color: map-get($colors, light-tint);
       }
     }
   }
