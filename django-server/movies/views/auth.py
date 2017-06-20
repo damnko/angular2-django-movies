@@ -4,6 +4,14 @@ import json
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from movies.utils import create_login_token
+from django.middleware.csrf import get_token
+
+def send_csrf(request):
+    # just by doing this it will send csrf token back
+    csrf_token = get_token(request)
+    return JsonResponse({
+        'status': 'success'
+    })
 
 @csrf_exempt
 def username_exists(request):
@@ -71,6 +79,7 @@ def login(request, redirect_after_registration=False, registration_data=None):
                 'status': 'fail'
             }, status=401)
 
+    # print('csfr token is', get_token(request))
     res = JsonResponse({
         'status': 'success'
     })

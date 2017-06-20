@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Rating, Movie
 import json
+from movies.utils import get_token_data
 
 # @csrf_exempt # temporary decorator to remove csrf, just to test with postman
 def rate(request):
@@ -12,7 +13,11 @@ def rate(request):
         movie_id = body['id']
         # rating = request.POST.get('rating', 0)
         rating = int(body['rating'])
-        username = body['username']
+        try:
+            username = body['username']
+        except KeyError:
+            token = get_token_data(request)
+            username = token['username']
 
         # get the movie object with id movie_id, or create it
         m, created = Movie.objects.get_or_create(source_id=movie_id, defaults={'title': ''})

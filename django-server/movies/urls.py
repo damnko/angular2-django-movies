@@ -19,6 +19,7 @@ comment_routes = [
 ]
 
 auth_routes = [
+    url(r'^auth/csrf$', views.send_csrf, name='send csrf token'),
     url(r'^auth/login/$', views.login, name='login'),
     url(r'^auth/register/$', views.register, name='register'),
     url(r'^auth/username-exists/$', views.username_exists, name='check unique username'),
@@ -31,5 +32,5 @@ user_data_routes = [
     url(r'^user/delete/$', views.delete_account, name='delete user account')
 ]
 
-urlpatterns = movies_routes + rate_routes + auth_routes + user_data_routes
+urlpatterns = movies_routes + rate_routes + auth_routes + user_data_routes + comment_routes
 

@@ -13,12 +13,13 @@ import { Http, RequestOptions } from '@angular/http';
 import { Cookie } from 'ng2-cookies';
 
 // auth0/angular2-jwt custom configuration for csfr and token stored in cookies
-export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
     tokenName: 'token',
     tokenGetter: (() => Cookie.get('token')),
     noTokenScheme: true, // otherwise it will put "Bearer " in front of the token
     globalHeaders: [{
+      // in order for this to work I had to get the csrf token with APP_INITIALIZER on app.module.ts
       'X-CSRFToken': Cookie.get('csrftoken'),
     }],
   }), http, options);

@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from ..models import Comment, Movie
 import math
 import json
+from movies.utils import get_token_data
 
 @csrf_exempt # temporary decorator to remove csrf, just to test with postman
 def comment(request):
@@ -13,8 +14,12 @@ def comment(request):
 
         post_data = json.loads(request.body)
         movie_id = post_data['id']
-        username = post_data['username']
         body = post_data['body']
+        try:
+            username = post_data['username']
+        except KeyError:
+            token = get_token_data(request)
+            username = token['username']
 
         # get movie object
         m, created = Movie.objects.get_or_create(source_id = movie_id, defaults={'title': ''})

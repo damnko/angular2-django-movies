@@ -33,7 +33,8 @@
   [formGroup]="commentForm">
   <div [fxFlex]="width*0.8" class="content">
     <md-input-container class="fw">
-      <textarea mdInput placeholder="Post your comment" formControlName="comment"></textarea>
+      <textarea mdInput formControlName="comment"
+        [placeholder]="(us.user$ | async) ? 'Post comment (as '+(us.user$ | async).username + ')' : 'Post comment (as guest)'"></textarea>
     </md-input-container>
   </div>
   <div [fxFlex]="width*0.2" class="content">

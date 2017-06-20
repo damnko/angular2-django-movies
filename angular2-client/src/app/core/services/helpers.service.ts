@@ -17,6 +17,16 @@ export class HelpersService {
     this.snackBar.open(body);
   }
 
+  getCsrf(): Observable<any> {
+    const csrfToken = Cookie.get('csrftoken');
+    if (!csrfToken) {
+      return this.http.get(`/api/movies/auth/csrf`)
+        .first();
+        // .subscribe(res => console.log('ok registered csrf cookie', Cookie.get('csrftoken')));
+    }
+    return Observable.of(csrfToken);
+  }
+
   createHeaders(): RequestOptions {
     const headers = new Headers({
       'Content-Type': 'application/json',

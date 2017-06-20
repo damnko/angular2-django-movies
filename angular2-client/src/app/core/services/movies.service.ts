@@ -1,3 +1,5 @@
+import { Cookie } from 'ng2-cookies';
+import { AuthHttp } from 'angular2-jwt';
 import { HelpersService } from './helpers.service';
 import { UserService } from './user.service';
 import { config } from './../../../config';
@@ -12,7 +14,8 @@ export class MoviesService {
   constructor(
     private http: Http,
     private us: UserService,
-    private hs: HelpersService
+    private hs: HelpersService,
+    private auth: AuthHttp
   ) { }
 
   moviesFromDate(format?: string): Date | string {
@@ -63,7 +66,17 @@ export class MoviesService {
   }
 
   rateMovie(id: string, rating: number): Observable<any> {
-    return this.postRequest(`/api/movies/rate`, { id, rating });
+    const url = `/api/movies/rate`;
+    console.log('csrf token is', Cookie.get('csrftoken'));
+    // check if user is logged in
+    return this.us.user$
+      .first()
+      .flatMap(user => {
+        if (user) {
+          return this.auth.post(url, { id, rating });
+        }
+        return this.postRequest(url, { id, rating });
+      });
   }
 
   getMovieRating(id: string): Observable<any> {
@@ -94,7 +107,16 @@ export class MoviesService {
   }
 
   postComment(id: string, body: string): Observable<any> {
-    return this.postRequest(`/api/movies/comment`, { id, body });
+    const url = `/api/movies/comment`;
+    // check if user is logged in
+    return this.us.user$
+      .first()
+      .flatMap(user => {
+        if (user) {
+          return this.auth.post(url, { id, body });
+        }
+        return this.postRequest(url, { id, body });
+      });
   }
 
   removeComment(id: string): Observable<any> {

@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { HelpersService } from './core/services/helpers.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app',
-  encapsulation: ViewEncapsulation.None,
   template: `
   <toolbar></toolbar>
   <error-bar></error-bar>
@@ -11,5 +11,4 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 
 export class AppComponent {
-
 }

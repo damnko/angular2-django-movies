@@ -13,6 +13,7 @@ import { Cookie } from 'ng2-cookies';
 export class UserService {
   jwtHelper: JwtHelper = new JwtHelper();
   user$ = new BehaviorSubject<any>(this.getAuthDetails());
+  user: any = false;
 
   constructor(
     private http: Http,
@@ -30,7 +31,7 @@ export class UserService {
   }
 
   getOrSetUsername(): string {
-    let username = localStorage.getItem('username');
+    let username = this.user.username || localStorage.getItem('username');
     if (!username) {
       username = btoa(Math.random().toString());
       localStorage.setItem('username', username);
@@ -87,6 +88,7 @@ export class UserService {
 
   setUserData(): void {
     this.user$.next(this.getAuthDetails());
+    this.user = this.getAuthDetails();
   }
 
   private getCookieToken(): string {
