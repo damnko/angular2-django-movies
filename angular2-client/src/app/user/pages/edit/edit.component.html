@@ -21,7 +21,7 @@
       </md-input-container>
       <div fxLayout="row" fxLayoutAlign="center">
         <div fxFlex="50">
-          <button md-raised-button type="submit" [disabled]="!updateProfileForm.valid || formLoading">
+          <button md-raised-button type="submit" [disabled]="!updateProfileForm.valid || updateProfileForm.pending">
             <i *ngIf="updateProfileForm.pending" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
             Update profile
           </button>
@@ -41,8 +41,8 @@
       <password-form [isEdit]="true" [sourceForm]="passwordForm"></password-form>
       <div fxLayout="row" fxLayoutAlign="center">
         <div fxFlex="50">
-          <button md-raised-button type="submit" [disabled]="!passwordForm.valid || formLoading">
-            <i *ngIf="formLoading" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+          <button md-raised-button type="submit" [disabled]="!passwordForm.valid || passwordForm.pending">
+            <i *ngIf="passwordForm.pending" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
             Update password
           </button>
         </div>

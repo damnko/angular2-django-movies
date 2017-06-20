@@ -1,9 +1,13 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div fxFlex="100" class="cont">
-    <div class="wrongCredentials" *ngIf="wrongCredentials">
-      <i class="fa fa-exclamation" aria-hidden="true"></i> Username or password are wrong
-    </div>
     <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
+      <div *ngIf="loginForm.errors" class="alert error">
+        <ul>
+          <li *ngFor="let error of (loginForm.errors | myErrorsToList)">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
       <md-input-container class="fw block">
         <input mdInput placeholder="Username" formControlName="username">
       </md-input-container>
@@ -12,7 +16,10 @@
       </md-input-container>
       <div fxLayout="row" fxLayoutAlign="center">
         <div fxFlex="50">
-          <button md-raised-button type="submit" [disabled]="!loginForm.valid">Login</button>
+          <button md-raised-button type="submit" [disabled]="!loginForm.valid || loginForm.pending">
+            <i *ngIf="loginForm.pending" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+            Login
+          </button>
         </div>
       </div>
     </form>

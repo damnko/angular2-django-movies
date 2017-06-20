@@ -55,6 +55,8 @@ export class EditComponent {
 
   updateProfile(): void {
     this.success.profile = false;
+    // TODO:
+    // https://stackoverflow.com/questions/44631754/how-to-revert-markaspending-in-angular-2-form
     this.updateProfileForm.markAsPending();
     const formData = {
       username: this.updateProfileForm.value.username,
@@ -82,6 +84,8 @@ export class EditComponent {
   updatePassword(): void {
     console.log(this.passwordForm);
     this.success.password = false;
+    // TODO:
+    // https://stackoverflow.com/questions/44631754/how-to-revert-markaspending-in-angular-2-form
     this.passwordForm.markAsPending();
     const formData = {
       oldPassword: this.passwordForm.value.passwords.oldPassword,

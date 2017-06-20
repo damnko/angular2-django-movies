@@ -34,4 +34,10 @@ body {
   &.success {
     background-color: #63a95f;
   }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 }
