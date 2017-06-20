@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, Func
 import math
 from ..models import Movie, Rating, Comment
 
@@ -75,6 +75,9 @@ def movie_details(request, movie_id):
         }
     })
 
+class Round(Func):
+    function = 'ROUND'
+    template='%(function)s(%(expressions)s, 1)'
 
 def movies_summary(request):
     if request.method != 'GET':
@@ -84,7 +87,7 @@ def movies_summary(request):
     movie_ids = request.GET.get('ids', '').split(',')
 
     m = Movie.objects.filter(source_id__in=movie_ids).annotate(
-        avg_rating=Avg('rating__rating'), # avg on rating column of rating table
+        avg_rating=Round(Avg('rating__rating')), # avg on rating column of rating table
         comment_count=Count('comment', distinct=True)
     ).values()
 
