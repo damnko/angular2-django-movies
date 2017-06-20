@@ -1,11 +1,13 @@
-import { HelpersService } from './../../../core/services/helpers.service';
-import { UserService } from './../../../core/services/user.service';
-import { Observable } from 'rxjs/Observable';
-import { MoviesService } from './../../../core/services/movies.service';
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as _ from 'lodash';
+
+import {
+  HelpersService,
+  MoviesService,
+  UserService
+} from './../../../core/services';
 
 @Component({
   selector: 'comments',
@@ -29,8 +31,8 @@ export class CommentsComponent implements OnInit {
   constructor(
     private ms: MoviesService,
     private fb: FormBuilder,
-    public us: UserService,
-    private helpers: HelpersService
+    private helpers: HelpersService,
+    public us: UserService
   ) {
     this.commentForm = this.fb.group({
       comment: ['', Validators.required]
@@ -38,8 +40,6 @@ export class CommentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init', this.movieId, this.us.getOrSetUsername());
-
     this.commentsPageNr$
       .flatMap(page => this.ms.getComments(this.movieId, page))
       .map(res => res.data)

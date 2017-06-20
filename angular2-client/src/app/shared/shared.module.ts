@@ -1,10 +1,10 @@
-import { ErrorsToListPipe } from './pipes/errors-to-list.pipe';
-import { ErrorBarComponent } from './components/errorbar/errorbar.component';
 import { RouterModule } from '@angular/router';
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
-import { GenresToTextPipe } from './pipes/genres-to-text.pipe';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { CommonModule } from '@angular/common';
+import { StarRatingModule } from 'angular-star-rating';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 import {
   MdToolbarModule,
   MdSnackBarModule,
@@ -14,11 +14,16 @@ import {
   MdButtonModule,
   MdMenuModule
 } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { CommonModule } from '@angular/common';
-import { StarRatingModule } from 'angular-star-rating';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
+
+import {
+  ErrorsToListPipe,
+  GenresToTextPipe
+} from './pipes';
+import {
+  ErrorBarComponent,
+  LoadingSpinnerComponent,
+  ToolbarComponent
+} from './components';
 
 const ANGULAR_MATERIAL_COMPONENTS = [
   MdCardModule,
@@ -28,6 +33,17 @@ const ANGULAR_MATERIAL_COMPONENTS = [
   MdInputModule,
   MdButtonModule,
   MdMenuModule
+];
+
+const COMPONENTS = [
+  ErrorBarComponent,
+  LoadingSpinnerComponent,
+  ToolbarComponent
+];
+
+const PIPES = [
+  ErrorsToListPipe,
+  GenresToTextPipe
 ];
 
 @NgModule({
@@ -41,24 +57,18 @@ const ANGULAR_MATERIAL_COMPONENTS = [
     RouterModule,
     CommonModule,
     ...ANGULAR_MATERIAL_COMPONENTS,
-    ToolbarComponent,
     FlexLayoutModule,
     StarRatingModule,
     FormsModule,
     ReactiveFormsModule,
-    GenresToTextPipe,
     LoadingSpinnerComponent,
     NgxPaginationModule,
-    ErrorBarComponent,
-    ErrorsToListPipe
+    ...COMPONENTS,
+    ...PIPES
   ],
   declarations: [
-    ToolbarComponent,
-    GenresToTextPipe,
-    LoadingSpinnerComponent,
-    ErrorBarComponent,
-    ErrorsToListPipe
+    ...COMPONENTS,
+    ...PIPES
   ],
-  providers: [],
 })
 export class SharedModule { }

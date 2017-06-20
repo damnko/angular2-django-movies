@@ -1,13 +1,13 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { HelpersService } from './helpers.service';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
-
-import { tokenNotExpired } from 'angular2-jwt';
 import { JwtHelper, AuthHttp } from 'angular2-jwt';
 import { Cookie } from 'ng2-cookies';
+
+import { HelpersService } from './helpers.service';
+
 
 @Injectable()
 export class UserService {
@@ -41,6 +41,7 @@ export class UserService {
 
   usernameIsUnique(username: string): Observable<boolean> {
     return this.http.get(`/api/movies/auth/username-exists/?u=${username}`)
+      .first()
       .map(res => res.json())
       .map(res => !res.data.username_exists);
   }
@@ -54,9 +55,7 @@ export class UserService {
   }
 
   editProfile(formData: any): Observable<any> {
-    const req = this.auth.post(`/api/movies/user/update/`, formData);
-    this.auth.setGlobalHeaders([{'X-CSRFToken': Cookie.get('csrftoken')}], req);
-    return req;
+    return this.auth.post(`/api/movies/user/update/`, formData);
   }
 
   editPassword(formData: any): Observable<any> {

@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
-import { UserService } from './../../../core/services/user.service';
-import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+
+import { UserService } from './../../../core/services';
 
 @Component({
   templateUrl: './login.component.html'
@@ -46,8 +47,7 @@ export class LoginComponent {
         res => {
           this.us.setUserData();
           this.router.navigate(['/']);
-        },
-        err => console.error('Login error', err)
+        }
       );
   }
 }

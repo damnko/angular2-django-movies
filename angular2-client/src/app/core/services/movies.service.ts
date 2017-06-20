@@ -1,12 +1,13 @@
 import { Cookie } from 'ng2-cookies';
 import { AuthHttp } from 'angular2-jwt';
-import { HelpersService } from './helpers.service';
-import { UserService } from './user.service';
-import { config } from './../../../config';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as moment from 'moment';
+
+import { HelpersService } from './helpers.service';
+import { UserService } from './user.service';
+import { config } from './../../../config';
 
 @Injectable()
 export class MoviesService {
@@ -42,15 +43,14 @@ export class MoviesService {
       .flatMap(res => {
         const ids = res.results.map((movie: any) => movie.id);
         return this.getMoviesSummary(ids, res);
-      }).do(console.log)
-      .map(({ tmdb, api }) => {
+      }).map(({ tmdb, api }) => {
         // populate each field with custom data from backend api
         tmdb.results.forEach((movie: any) => {
           movie['custom_data'] = api.data.movies[movie.id];
         });
 
         return tmdb;
-      }).do(console.log);
+      });
   }
 
   getMovieDetails(id: string): Observable<any> {
@@ -62,12 +62,12 @@ export class MoviesService {
 
   getMovieInternalDetails(id: string): Observable<any> {
     return this.http.get(`/api/movies/movie/${id}/`)
+      .first()
       .map((res: any) => res.json());
   }
 
   rateMovie(id: string, rating: number): Observable<any> {
     const url = `/api/movies/rate`;
-    console.log('csrf token is', Cookie.get('csrftoken'));
     // check if user is logged in
     return this.us.user$
       .first()
@@ -93,6 +93,7 @@ export class MoviesService {
     const options = this.hs.createHeaders();
 
     return this.http.delete(`/api/movies/rate?${params}`, options)
+      .first()
       .map(res => res.json());
   }
 

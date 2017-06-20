@@ -1,4 +1,3 @@
-import { HelpersService } from './core/services/helpers.service';
 import { Component } from '@angular/core';
 
 @Component({

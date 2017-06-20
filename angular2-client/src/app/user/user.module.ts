@@ -1,14 +1,19 @@
-import { EditComponent } from './pages/edit/edit.component';
-import { PasswordFormComponent } from './components/password-form/password-form.component';
-import { AuthHomeComponent } from './pages/auth-home/auth-home.component';
-import { HintDirective } from './components/input-hint.component';
+import { NgModule } from '@angular/core';
+
 import { AsyncFormValidatorsService } from './services/async-form-validators.service';
-import { UserHomeComponent } from './pages/user-home/user-home.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { LoginComponent } from './pages/login/login.component';
 import { SharedModule } from './../shared/shared.module';
 import { UserRoutingModule } from './user.routing';
-import { NgModule } from '@angular/core';
+import {
+  EditComponent,
+  AuthHomeComponent,
+  LoginComponent,
+  UserHomeComponent,
+  RegisterComponent,
+} from './pages';
+import {
+  PasswordFormComponent,
+  HintDirective
+} from './components';
 
 @NgModule({
   imports: [

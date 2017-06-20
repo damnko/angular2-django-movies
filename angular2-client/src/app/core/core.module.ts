@@ -1,16 +1,18 @@
-import { NonAuthGuard } from './services/non-auth-guard.service';
-import { AuthGuard } from './services/auth-guard.service';
-import { SharedModule } from './../shared/shared.module';
-import { HelpersService } from './services/helpers.service';
-import { UserService } from './services/user.service';
-import { MoviesService } from './services/movies.service';
 import { NgModule } from '@angular/core';
 // had to install animations with " yarn add @angular/animations@latest"
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { XSRFStrategy, CookieXSRFStrategy } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Http, RequestOptions } from '@angular/http';
 import { Cookie } from 'ng2-cookies';
+
+import {
+  NonAuthGuard,
+  AuthGuard,
+  HelpersService,
+  UserService,
+  MoviesService
+} from './services';
+import { SharedModule } from './../shared/shared.module';
 
 // auth0/angular2-jwt custom configuration for csfr and token stored in cookies
 function authHttpServiceFactory(http: Http, options: RequestOptions) {

@@ -1,5 +1,9 @@
-import { Directive, Input, ElementRef, Renderer,
-  TemplateRef, ViewContainerRef, OnInit } from '@angular/core';
+import {
+  Directive,
+  Input,
+  ElementRef,
+  Renderer
+} from '@angular/core';
 
 @Directive({ selector: '[inputHint]' })
 export class HintDirective {

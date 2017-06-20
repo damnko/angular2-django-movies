@@ -1,9 +1,13 @@
-import { HelpersService } from './../../../core/services/helpers.service';
-import { MoviesService } from './../../../core/services/movies.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { IStarRatingOnClickEvent } from 'angular-star-rating/src/star-rating-struct';
+
+import {
+  HelpersService,
+  MoviesService,
+  UserService
+} from './../../../core/services';
 
 @Component({
   templateUrl: './movie-details.component.html',
@@ -18,12 +22,12 @@ export class MovieDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    public us: UserService,
     private ms: MoviesService,
     private helpers: HelpersService
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((movie: any) => console.log('the movie is', movie));
     this.movie$ = this.route.data.map((res: any) => res.movie);
     this.route.params.first().subscribe(par => {
       const movieId = par['id'];
@@ -62,6 +66,6 @@ export class MovieDetailsComponent implements OnInit {
   private getInternalDetails(id: string): void {
     this.ms.getMovieInternalDetails(id)
       .map(res => res.data)
-      .subscribe(res => {console.log(res); this.movieInternalDetails = res; });
+      .subscribe(res => this.movieInternalDetails = res);
   }
 }

@@ -1,5 +1,6 @@
 import { Router, NavigationEnd } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'error-bar',
@@ -13,20 +14,25 @@ import { Component, OnInit } from '@angular/core';
   `
 })
 
-export class ErrorBarComponent implements OnInit {
+export class ErrorBarComponent implements OnInit, OnDestroy {
   error: string;
+  routerSub: Subscription;
 
   constructor(
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.router.events.subscribe(res => {
+    this.routerSub = this.router.events.subscribe(res => {
+      // check, show and remove error after every navigation event ends
       if (res instanceof NavigationEnd) {
         this.error = localStorage.getItem('error');
         localStorage.removeItem('error');
       }
-      console.log('router event triggered', res);
     });
+  }
+
+  ngOnDestroy() {
+    this.routerSub.unsubscribe();
   }
 }

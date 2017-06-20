@@ -1,12 +1,12 @@
-import { HelpersService } from './core/services/helpers.service';
-import { StartupService } from './services/startup.service';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-import { MoviesModule } from './movies/movies.module';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule  } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
+import { HelpersService } from './core/services';
+import { StartupService } from './services/startup.service';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { MoviesModule } from './movies/movies.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 

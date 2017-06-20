@@ -1,9 +1,10 @@
-import { Observable } from 'rxjs/Rx';
-import { UserService } from './../../../core/services/user.service';
+import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AsyncFormValidatorsService } from './../../services/async-form-validators.service';
-import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
+
+import { UserService } from './../../../core/services';
+import { AsyncFormValidatorsService } from './../../services/async-form-validators.service';
 import {
   emailValidator,
   passwordMatchValidator,
@@ -25,10 +26,7 @@ export class EditComponent {
 
   constructor(
     private fb: FormBuilder,
-    private asyncValidators: AsyncFormValidatorsService,
-    private route: ActivatedRoute,
-    private us: UserService,
-    private router: Router
+    private us: UserService
   ) {
     this.setupForm();
   }
@@ -50,6 +48,7 @@ export class EditComponent {
         });
       });
 
+    // create empty formGroup that will be populated by password-form component
     this.passwordForm = this.fb.group({});
   }
 
@@ -67,13 +66,11 @@ export class EditComponent {
       .first()
       .subscribe(
         res => {
-          console.log('res anyway');
           this.success.profile = true;
           this.us.setUserData();
           this.updateProfileForm.markAsPristine();
         },
         err => {
-          console.error('Registration form error', err);
           this.updateProfileForm.setErrors({
             formError: true
           });
@@ -82,7 +79,6 @@ export class EditComponent {
   }
 
   updatePassword(): void {
-    console.log(this.passwordForm);
     this.success.password = false;
     // TODO:
     // https://stackoverflow.com/questions/44631754/how-to-revert-markaspending-in-angular-2-form
@@ -109,9 +105,6 @@ export class EditComponent {
         res => {
           this.success.password = true;
           this.us.setUserData();
-        },
-        err => {
-          console.error('Registration form error', err);
         }
       );
   }

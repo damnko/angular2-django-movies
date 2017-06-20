@@ -1,12 +1,15 @@
-import { NonAuthGuard } from './../core/services/non-auth-guard.service';
-import { AuthGuard } from './../core/services/auth-guard.service';
-import { EditComponent } from './pages/edit/edit.component';
-import { AuthHomeComponent } from './pages/auth-home/auth-home.component';
-import { UserHomeComponent } from './pages/user-home/user-home.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { LoginComponent } from './pages/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { NonAuthGuard } from './../core/services/non-auth-guard.service';
+import { AuthGuard } from './../core/services/auth-guard.service';
+import {
+  AuthHomeComponent,
+  EditComponent,
+  LoginComponent,
+  RegisterComponent,
+  UserHomeComponent
+} from './pages';
 
 const routes: Routes = [
   { path: '', component: UserHomeComponent, children: [

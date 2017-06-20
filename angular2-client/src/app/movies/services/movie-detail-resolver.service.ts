@@ -1,7 +1,8 @@
-import { MoviesService } from './../../core/services/movies.service';
 import { Injectable } from '@angular/core';
 import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+
+import { MoviesService } from './../../core/services';
 
 @Injectable()
 export class MovieDetailResolver implements Resolve<any> {
@@ -30,8 +31,6 @@ export class MovieDetailResolver implements Resolve<any> {
             break;
         }
         localStorage.setItem('error', message);
-
-        console.log('error', err.json());
         this.router.navigate(['/']);
         return Observable.of(null);
       });

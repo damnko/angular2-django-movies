@@ -15,7 +15,7 @@ const helpers = require('../helpers');
 const PROD = process.env.NODE_ENV === 'production';
 
 const METADATA = {
-  title: 'An Angular2 app to explore movies',
+  title: 'An Angular2 app to see & comment top movies',
   baseUrl: '/'
 }
 

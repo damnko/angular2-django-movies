@@ -1,4 +1,3 @@
-import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import {
   Router,
@@ -6,6 +5,7 @@ import {
   CanActivateChild,
   RouterStateSnapshot
 } from '@angular/router';
+import { UserService } from './user.service';
 
 @Injectable()
 export class NonAuthGuard implements CanActivateChild {

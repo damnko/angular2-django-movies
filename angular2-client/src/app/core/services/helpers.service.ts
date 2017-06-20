@@ -1,9 +1,10 @@
-import { UserService } from './user.service';
 import { Observable } from 'rxjs/Rx';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { Cookie } from 'ng2-cookies';
+
+import { UserService } from './user.service';
 
 @Injectable()
 export class HelpersService {
@@ -22,7 +23,6 @@ export class HelpersService {
     if (!csrfToken) {
       return this.http.get(`/api/movies/auth/csrf`)
         .first();
-        // .subscribe(res => console.log('ok registered csrf cookie', Cookie.get('csrftoken')));
     }
     return Observable.of(csrfToken);
   }

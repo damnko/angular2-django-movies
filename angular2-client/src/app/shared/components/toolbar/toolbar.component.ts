@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { UserService } from './../../../core/services/user.service';
 import { Component } from '@angular/core';
+import { UserService } from './../../../core/services';
 
 @Component({
   selector: 'toolbar',

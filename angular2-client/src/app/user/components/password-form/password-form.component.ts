@@ -1,5 +1,6 @@
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
+
 import {
   emailValidator,
   passwordMatchValidator,
@@ -19,12 +20,9 @@ export class PasswordFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder
-  ) {
-    console.log('form init constructor', this.sourceForm);
-  }
+  ) { }
 
   ngOnInit() {
-    console.log('form init', this.sourceForm);
     this.passwords = this.fb.group({
       password: ['', [Validators.required, passwordValidator()]],
       passwordConfirm: ['', Validators.required],

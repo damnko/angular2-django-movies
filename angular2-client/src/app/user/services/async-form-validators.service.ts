@@ -1,7 +1,8 @@
-import { Observable } from 'rxjs/Rx';
-import { UserService } from './../../core/services/user.service';
+import { Observable } from 'rxjs/Observable';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { Injectable } from '@angular/core';
+
+import { UserService } from './../../core/services';
 
 @Injectable()
 export class AsyncFormValidatorsService {
@@ -15,11 +16,11 @@ export class AsyncFormValidatorsService {
   usernameUnique(): ValidatorFn {
     return (c: AbstractControl): Observable<{[key: string]: any}> => {
       const username = c.value;
+      // hack to achieve debounce with async form validator
       clearTimeout(this.timeout);
       return Observable.create((observer: any) => {
         this.timeout = setTimeout(() => {
           this.us.usernameIsUnique(username)
-            .do((unique) => console.log('called async', unique))
             .map(isUnique => isUnique ? null : { isNotUnique: true })
             .subscribe(
               res => { observer.next(res); observer.complete(); }

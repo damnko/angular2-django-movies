@@ -1,8 +1,9 @@
-import { UserService } from './../../../core/services/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AsyncFormValidatorsService } from './../../services/async-form-validators.service';
-import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
+
+import { UserService } from './../../../core/services';
+import { AsyncFormValidatorsService } from './../../services/async-form-validators.service';
 import {
   emailValidator,
   passwordMatchValidator,
@@ -22,7 +23,6 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private asyncValidators: AsyncFormValidatorsService,
-    private route: ActivatedRoute,
     private us: UserService,
     private router: Router
   ) {
@@ -41,7 +41,6 @@ export class RegisterComponent {
   }
 
   submitForm(): void {
-    console.log(this.registerForm);
     this.formLoading = true;
     const formData = {
       username: this.registerForm.value.username,
@@ -58,7 +57,6 @@ export class RegisterComponent {
           this.router.navigate(['/']);
         },
         err => {
-          console.error('Registration form error', err);
           this.formError = true;
         }
       );
