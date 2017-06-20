@@ -63,7 +63,7 @@ export class UserService {
   }
 
   logout(): void {
-    Cookie.delete('token');
+    Cookie.delete('token', '/');
     this.setUserData();
   }
 
@@ -86,7 +86,6 @@ export class UserService {
   }
 
   setUserData(): void {
-    console.log('setuserdata called');
     this.user$.next(this.getAuthDetails());
   }
 
