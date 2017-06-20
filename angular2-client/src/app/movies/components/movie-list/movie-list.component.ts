@@ -17,7 +17,6 @@ import { Cookie } from 'ng2-cookies';
 
 export class MovieListComponent implements OnInit {
   public topMovies$: Observable<any>;
-  public error: string;
   public moviesSinceDate: Date | any;
   public spinnerStyles: any;
 
@@ -32,7 +31,6 @@ export class MovieListComponent implements OnInit {
 
   ngOnInit() {
     this.topMovies$ = this.movies.getTopMovies();
-    this.checkForErrors();
     this.moviesSinceDate = this.movies.moviesFromDate();
 
     // custom styles to fit loader to card container
@@ -52,10 +50,5 @@ export class MovieListComponent implements OnInit {
     movie.detailsLoading = true;
     const title = encodeURIComponent(movie.original_title.toLowerCase().replace(/ /g, '-'));
     this.router.navigate([`/details/${movie.id}/${title}`]);
-  }
-
-  private checkForErrors(): void {
-    this.error = localStorage.getItem('error');
-    localStorage.removeItem('error');
   }
 }

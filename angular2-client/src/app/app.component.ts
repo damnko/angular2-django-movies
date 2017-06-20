@@ -5,6 +5,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
   template: `
   <toolbar></toolbar>
+  <error-bar></error-bar>
   <router-outlet></router-outlet>
   `
 })

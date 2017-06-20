@@ -1,3 +1,4 @@
+import { ErrorBarComponent } from './components/errorbar/errorbar.component';
 import { RouterModule } from '@angular/router';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { GenresToTextPipe } from './pipes/genres-to-text.pipe';
@@ -46,12 +47,14 @@ const ANGULAR_MATERIAL_COMPONENTS = [
     ReactiveFormsModule,
     GenresToTextPipe,
     LoadingSpinnerComponent,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ErrorBarComponent
   ],
   declarations: [
     ToolbarComponent,
     GenresToTextPipe,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    ErrorBarComponent
   ],
   providers: [],
 })
