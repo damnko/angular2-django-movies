@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg, Count
-
+import math
 from ..models import Movie, Rating, Comment
 
 
@@ -68,7 +68,7 @@ def movie_details(request, movie_id):
         'status': 'success',
         'data': {
             'rating': {
-                'avg': avg_rating,
+                'avg': '{:.1f}'.format(avg_rating),
                 'count': rating_count
             },
             'comments': list(c)
