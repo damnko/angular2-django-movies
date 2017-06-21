@@ -15,7 +15,7 @@ import {
 import { SharedModule } from './../shared/shared.module';
 
 // auth0/angular2-jwt custom configuration for csfr and token stored in cookies
-function authHttpServiceFactory(http: Http, options: RequestOptions) {
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
     tokenName: 'token',
     tokenGetter: (() => Cookie.get('token')),

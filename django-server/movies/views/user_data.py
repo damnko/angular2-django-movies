@@ -75,7 +75,7 @@ def update_password(request):
     post_data = json.loads(request.body)
     new_password = post_data['password']
     old_password = post_data['oldPassword']
-    
+
     try:
         validate_password(new_password)
     except ValidationError as e:

@@ -7,7 +7,7 @@ import { JwtHelper, AuthHttp } from 'angular2-jwt';
 import { Cookie } from 'ng2-cookies';
 
 import { HelpersService } from './helpers.service';
-
+import { config } from './../../../config';
 
 @Injectable()
 export class UserService {
@@ -40,26 +40,31 @@ export class UserService {
   }
 
   usernameIsUnique(username: string): Observable<boolean> {
-    return this.http.get(`/api/movies/auth/username-exists/?u=${username}`)
+    return this.http.get(`${config.api}/movies/auth/username-exists/?u=${username}`)
       .first()
       .map(res => res.json())
       .map(res => !res.data.username_exists);
   }
 
   register(formData: any): Observable<any> {
-    return this.authPost(`/api/movies/auth/register/`, formData);
+    return this.authPost(`${config.api}/movies/auth/register/`, formData);
   }
 
   login(formData: any): Observable<any> {
-    return this.authPost(`/api/movies/auth/login/`, formData);
+    return this.authPost(`${config.api}/movies/auth/login/`, formData);
   }
 
   editProfile(formData: any): Observable<any> {
-    return this.auth.post(`/api/movies/user/update/`, formData);
+    // need to set withCredentials to send csrf token for Django
+    return this.auth.post(`${config.api}/movies/user/update/`, formData, { withCredentials: true });
   }
 
   editPassword(formData: any): Observable<any> {
-    return this.auth.post(`/api/movies/user/update-password/`, formData);
+    return this.auth.post(
+      `${config.api}/movies/user/update-password/`,
+      formData,
+      { withCredentials: true }
+    );
   }
 
   logout(): void {

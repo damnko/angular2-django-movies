@@ -61,26 +61,26 @@ export class MoviesService {
   }
 
   getMovieInternalDetails(id: string): Observable<any> {
-    return this.http.get(`/api/movies/movie/${id}/`)
+    return this.http.get(`${config.api}/movies/movie/${id}/`)
       .first()
       .map((res: any) => res.json());
   }
 
   rateMovie(id: string, rating: number): Observable<any> {
-    const url = `/api/movies/rate`;
+    const url = `${config.api}/movies/rate`;
     // check if user is logged in
     return this.us.user$
       .first()
       .flatMap(user => {
         if (user) {
-          return this.auth.post(url, { id, rating });
+          return this.auth.post(url, { id, rating }, { withCredentials: true });
         }
         return this.postRequest(url, { id, rating });
       });
   }
 
   getMovieRating(id: string): Observable<any> {
-    const url = `/api/movies/movie/${id}/rating/`;
+    const url = `${config.api}/movies/movie/${id}/rating/`;
     return this.postRequest(url, {});
   }
 
@@ -92,7 +92,7 @@ export class MoviesService {
 
     const options = this.hs.createHeaders();
 
-    return this.http.delete(`/api/movies/rate?${params}`, options)
+    return this.http.delete(`${config.api}/movies/rate?${params}`, options)
       .first()
       .map(res => res.json());
   }
@@ -103,18 +103,18 @@ export class MoviesService {
       `p=${page}`
     ].join('&');
 
-    return this.http.get(`/api/movies/movie/${id}/comments/?${params}`)
+    return this.http.get(`${config.api}/movies/movie/${id}/comments/?${params}`)
       .map(res => res.json());
   }
 
   postComment(id: string, body: string): Observable<any> {
-    const url = `/api/movies/comment`;
+    const url = `${config.api}/movies/comment`;
     // check if user is logged in
     return this.us.user$
       .first()
       .flatMap(user => {
         if (user) {
-          return this.auth.post(url, { id, body });
+          return this.auth.post(url, { id, body }, { withCredentials: true });
         }
         return this.postRequest(url, { id, body });
       });
@@ -126,7 +126,7 @@ export class MoviesService {
       `id=${id}`
     ].join('&');
 
-    return this.http.delete(`/api/movies/comment?${params}`, this.hs.createHeaders())
+    return this.http.delete(`${config.api}/movies/comment?${params}`, this.hs.createHeaders())
       .first()
       .map(res => res.json());
   }
@@ -134,14 +134,11 @@ export class MoviesService {
   private getMoviesSummary(movieIds: string[], tmdbRes: any): Observable<{tmdb: any, api: any}> {
     return Observable.combineLatest(
       Observable.of(tmdbRes),
-      this.http.get(`/api/movies/get-all?ids=${movieIds.join(',')}`).map((api: any) => api.json()),
+      this.http.get(`${config.api}/movies/get-all?ids=${movieIds.join(',')}`)
+        .map((api: any) => api.json()),
       (tmdb, api) => {
-        return {
-          tmdb,
-          api
-        };
-      }
-    );
+        return { tmdb, api };
+      });
   }
 
   private postRequest(url: string, data: any): Observable<any> {

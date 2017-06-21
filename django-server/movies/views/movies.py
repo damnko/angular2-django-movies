@@ -40,12 +40,14 @@ def movie_details(request, movie_id):
         m = Movie.objects.get(source_id=movie_id)
     except Movie.DoesNotExist:
         return JsonResponse({
-            'status': 'fail',
+            'status': 'success',
             'data': {
-                'code': 'not-found',
-                'message': 'The movie with ID %s does not exist' % movie_id
+                'rating': {
+                    'avg': None,
+                    'comments': None
+                }
             }
-        }, status=404)
+        })
 
     # get rating
     r = Rating.objects.filter(movie=m)\

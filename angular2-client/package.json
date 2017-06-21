@@ -1,7 +1,7 @@
 {
   "name": "angular2-movies",
   "version": "0.0.0",
-  "description": "A sample angular2 app to explore movies",
+  "description": "An Angular2 app to see & comment top movies",
   "main": "main.js",
   "scripts": {
     "clean": "rimraf build dist dll",
@@ -9,6 +9,7 @@
     "build:prod": "cross-env NODE_ENV=production webpack",
     "build:ngc": "ngc",
     "build": "npm run clean && npm run build:ngc && npm run build:prod",
+    "build:server:prod": "npm run build && npm run server:prod",
     "development": "npm run build:dev",
     "lint": "tslint \"src/**/*.ts\"",
     "production": "npm run build:server:prod",

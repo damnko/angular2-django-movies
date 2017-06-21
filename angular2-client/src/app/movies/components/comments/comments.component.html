@@ -6,7 +6,7 @@
         <strong>No comments yet</strong>, be the first to drop a line!
       </span>
       <md-list-item class="comment-item"
-        *ngFor="let comment of commentsData?.comments.reverse() | paginate: {
+        *ngFor="let comment of commentsData?.comments | paginate: {
               itemsPerPage: commentsData?.itemsPerPage,
               currentPage: commentsData?.currentPage,
               totalItems: commentsData?.itemsPerPage * commentsData?.totalPages

@@ -45,7 +45,7 @@ export class CommentsComponent implements OnInit {
       .map(res => res.data)
       .map(comments => {
         return {
-          comments: comments.comments,
+          comments: comments.comments.reverse(),
           currentPage: comments.current_page,
           totalPages: comments.total_pages,
           itemsPerPage: comments.items_per_page

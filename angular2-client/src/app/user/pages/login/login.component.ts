@@ -1,3 +1,4 @@
+import { Cookie } from 'ng2-cookies';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';

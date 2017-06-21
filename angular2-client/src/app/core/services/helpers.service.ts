@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { Cookie } from 'ng2-cookies';
 
+import { config } from './../../../config';
 import { UserService } from './user.service';
 
 @Injectable()
@@ -24,7 +25,7 @@ export class HelpersService {
   getCsrf(): Observable<any> {
     const csrfToken = Cookie.get('csrftoken');
     if (!csrfToken) {
-      return this.http.get(`/api/movies/auth/csrf`)
+      return this.http.get(`${config.api}/movies/auth/csrf`)
         .first();
     }
     return Observable.of(csrfToken);
@@ -35,7 +36,7 @@ export class HelpersService {
       'Content-Type': 'application/json',
       'X-CSRFToken': Cookie.get('csrftoken')
     });
-    const options = new RequestOptions({ headers });
+    const options = new RequestOptions({ headers, withCredentials: true });
     return options;
   }
 }

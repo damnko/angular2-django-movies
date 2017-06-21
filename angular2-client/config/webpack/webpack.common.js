@@ -73,6 +73,8 @@ module.exports = {
       { from: 'src/assets', to: 'assets' }
     ]),
     new ImageminPlugin({
+      // skipping svg because it sometimes resulted in corrupted img
+      test: /\.(jpe?g|png|gif)$/i,
       disable: !PROD,
       mozjpeg: {
         quality: 65
