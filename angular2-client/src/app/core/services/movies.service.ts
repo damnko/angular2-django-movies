@@ -126,7 +126,8 @@ export class MoviesService {
       `id=${id}`
     ].join('&');
 
-    return this.http.delete(`/api/movies/comment?${params}`)
+    return this.http.delete(`/api/movies/comment?${params}`, this.hs.createHeaders())
+      .first()
       .map(res => res.json());
   }
 

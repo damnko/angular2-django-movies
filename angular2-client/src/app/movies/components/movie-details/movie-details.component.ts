@@ -48,7 +48,7 @@ export class MovieDetailsComponent implements OnInit {
           this.previousUserRating = ev.rating;
           this.getInternalDetails(this.movieId);
         },
-        err => this.helpers.showMessage(err.data.message)
+        err => this.helpers.showMessage('There was an error while rating the movie')
       );
   }
 
@@ -59,7 +59,7 @@ export class MovieDetailsComponent implements OnInit {
           this.previousUserRating = 0;
           this.getInternalDetails(this.movieId);
         },
-        err => this.helpers.showMessage(err.data.message)
+        err => this.helpers.showMessage('There was an error while removing the rating')
       );
   }
 

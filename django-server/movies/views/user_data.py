@@ -2,11 +2,12 @@ from django.utils.decorators import decorator_from_middleware
 from movies.middlewares.jwt_authentication import JwtAuthentication
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-import json
 from django.contrib.auth import authenticate
+from django.core.exceptions import ValidationError
+import json
 
 from movies.utils import get_token_data, create_login_token
-
+from movies.validators import validate_email, validate_password
 
 @decorator_from_middleware(JwtAuthentication)
 def get_user_data(request):
@@ -37,6 +38,16 @@ def update_data(request):
     post_data = json.loads(request.body)
     new_email = post_data['email']
 
+    try:
+        validate_email(new_email)
+    except ValidationError as e:
+        return JsonResponse({
+            'status': 'fail',
+            'data': {
+                'message': str(e)
+            }
+        }, status=500)
+
     # get user object
     u = User.objects.get(username=username)
     u.email = new_email
@@ -64,6 +75,16 @@ def update_password(request):
     post_data = json.loads(request.body)
     new_password = post_data['password']
     old_password = post_data['oldPassword']
+    
+    try:
+        validate_password(new_password)
+    except ValidationError as e:
+        return JsonResponse({
+            'status': 'fail',
+            'data': {
+                'message': str(e)
+            }
+        }, status=500)
 
     # check old password and get user object
     u = authenticate(username=username, password=old_password)

@@ -15,7 +15,10 @@ export class HelpersService {
   ) { }
 
   showMessage(body: string): void {
-    this.snackBar.open(body);
+    this.snackBar.open(body, 'OK', {
+      duration: 3000,
+      extraClasses: ['error']
+    });
   }
 
   getCsrf(): Observable<any> {

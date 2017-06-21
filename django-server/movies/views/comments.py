@@ -71,12 +71,12 @@ def get_comments(request, movie_id):
         pass
 
     items_per_page = 7
-    page = int(request.GET.get('p', ''))
+    page = int(request.GET.get('p', 1))
 
     c = Comment.objects.filter(movie_id=movie_id).order_by('-date')
     total_pages = math.ceil(c.count() / items_per_page)
 
-    page = page-1 if page <=total_pages else total_pages-1
+    page = page-1 if page <=total_pages or total_pages==0 else total_pages-1
     limits = {
         'from': items_per_page * page,
         'to': (items_per_page * page) + items_per_page

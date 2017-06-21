@@ -64,7 +64,7 @@ def movie_details(request, movie_id):
         'status': 'success',
         'data': {
             'rating': {
-                'avg': '{:.1f}'.format(avg_rating),
+                'avg': '{:.1f}'.format(avg_rating) if avg_rating is not None else None,
                 'count': rating_count
             },
             'comments': list(c)

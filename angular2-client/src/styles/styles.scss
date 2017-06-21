@@ -18,6 +18,10 @@ body {
   display: block;
 }
 
+snack-bar-container.error {
+  background-color: map-get($colors, error);
+}
+
 .alert {
   padding: .5em;
   border-radius: .5em;

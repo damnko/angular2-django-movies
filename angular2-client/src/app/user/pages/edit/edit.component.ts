@@ -54,8 +54,6 @@ export class EditComponent {
 
   updateProfile(): void {
     this.success.profile = false;
-    // TODO:
-    // https://stackoverflow.com/questions/44631754/how-to-revert-markaspending-in-angular-2-form
     this.updateProfileForm.markAsPending();
     const formData = {
       username: this.updateProfileForm.value.username,
@@ -68,7 +66,8 @@ export class EditComponent {
         res => {
           this.success.profile = true;
           this.us.setUserData();
-          this.updateProfileForm.markAsPristine();
+          // by using setErrors I can revert the markAsPending state
+          this.updateProfileForm.setErrors({});
         },
         err => {
           this.updateProfileForm.setErrors({
@@ -80,8 +79,6 @@ export class EditComponent {
 
   updatePassword(): void {
     this.success.password = false;
-    // TODO:
-    // https://stackoverflow.com/questions/44631754/how-to-revert-markaspending-in-angular-2-form
     this.passwordForm.markAsPending();
     const formData = {
       oldPassword: this.passwordForm.value.passwords.oldPassword,
@@ -105,6 +102,8 @@ export class EditComponent {
         res => {
           this.success.password = true;
           this.us.setUserData();
+          // by using setErrors I can revert the markAsPending state
+          this.passwordForm.setErrors({});
         }
       );
   }

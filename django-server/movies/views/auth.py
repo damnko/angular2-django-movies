@@ -2,9 +2,11 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.middleware.csrf import get_token
+from django.core.exceptions import ValidationError
 import json
 
 from movies.utils import create_login_token
+from movies.validators import validate_password, validate_email
 
 def send_csrf(request):
     # just by doing this it will send csrf token back
@@ -37,10 +39,20 @@ def register(request):
         pass
 
     post_data = json.loads(request.body)
-    # TODO: check if email is valid and eventually other fields validation
     username = post_data['username']
     email = post_data['email']
     password = post_data['password']
+
+    try:
+        validate_password(password)
+        validate_email(email)
+    except ValidationError as e:
+        return JsonResponse({
+            'status': 'fail',
+            'data': {
+                'message': str(e)
+            }
+        }, status=500)
 
     # register user
     try:
