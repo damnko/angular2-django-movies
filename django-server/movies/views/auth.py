@@ -9,10 +9,11 @@ from movies.utils import create_login_token
 from movies.validators import validate_password, validate_email
 
 def send_csrf(request):
-    # just by doing this it will send csrf token back
+    # just by doing this it will send csrf token back as Set-Cookie header
     csrf_token = get_token(request)
     return JsonResponse({
-        'status': 'success'
+        'status': 'success',
+        'data': csrf_token
     })
 
 def username_exists(request):
@@ -87,8 +88,11 @@ def login(request, redirect_after_registration=False, registration_data=None):
                 'status': 'fail'
             }, status=401)
 
+    print('token is', token['token'])
+
     res = JsonResponse({
-        'status': 'success'
+        'status': 'success',
+        'data': str(token['token'], 'utf-8')
     })
     res.set_cookie('token', value=token['token'], expires=token['exp'])
     return res
