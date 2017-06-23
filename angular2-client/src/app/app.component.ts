@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, Renderer } from '@angular/core';
 
 @Component({
   selector: 'app',
@@ -9,5 +9,14 @@ import { Component } from '@angular/core';
   `
 })
 
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  constructor(
+    private renderer: Renderer
+  ) {}
+
+  ngAfterViewInit() {
+    // hide preloader
+    const preloader: HTMLElement = document.getElementById('preloader');
+    this.renderer.setElementClass(preloader, 'loaded', true);
+  }
 }

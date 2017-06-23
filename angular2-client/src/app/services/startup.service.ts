@@ -1,5 +1,4 @@
-import { Cookie } from 'ng2-cookies';
-import { Http } from '@angular/http';
+import { Http, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -19,11 +18,14 @@ export class StartupService {
   }
 
   getCsrf(): Observable<any> {
-    const csrfToken = Cookie.get('csrftoken');
+    const options = new RequestOptions({ withCredentials: true });
+    const csrfToken = localStorage.getItem('csrftoken');
     if (!csrfToken) {
-      return this.http.get(`${config.api}/movies/auth/csrf`, { withCredentials: true })
-        .first();
+      return this.http.get(`${config.api}/movies/auth/csrf`, options)
+        .first()
+        .map(res => res.json())
+        .do(res => localStorage.setItem('csrftoken', res.data));
     }
-    return Observable.of(null);
+    return Observable.of(csrfToken);
   }
 }

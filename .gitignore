@@ -49,3 +49,4 @@ src/client/app/shared/config/env.config.js.map
 # python specific
 __pycache__/
 db.sqlite3
+venv/

@@ -2,7 +2,6 @@ import { Observable } from 'rxjs/Rx';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
-import { Cookie } from 'ng2-cookies';
 
 import { config } from './../../../config';
 import { UserService } from './user.service';
@@ -23,10 +22,13 @@ export class HelpersService {
   }
 
   getCsrf(): Observable<any> {
-    const csrfToken = Cookie.get('csrftoken');
+    const options = new RequestOptions({ withCredentials: true });
+    const csrfToken = localStorage.getItem('csrftoken');
     if (!csrfToken) {
-      return this.http.get(`${config.api}/movies/auth/csrf`)
-        .first();
+      return this.http.get(`${config.api}/movies/auth/csrf`, options)
+        .first()
+        .map(res => res.json())
+        .do(res => localStorage.setItem('csrftoken', res.data));
     }
     return Observable.of(csrfToken);
   }
@@ -34,7 +36,7 @@ export class HelpersService {
   createHeaders(): RequestOptions {
     const headers = new Headers({
       'Content-Type': 'application/json',
-      'X-CSRFToken': Cookie.get('csrftoken')
+      'X-CSRFToken': localStorage.getItem('csrftoken')
     });
     const options = new RequestOptions({ headers, withCredentials: true });
     return options;

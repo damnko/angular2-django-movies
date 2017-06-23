@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { JwtHelper, AuthHttp } from 'angular2-jwt';
-import { Cookie } from 'ng2-cookies';
 
 import { HelpersService } from './helpers.service';
 import { config } from './../../../config';
@@ -47,11 +46,13 @@ export class UserService {
   }
 
   register(formData: any): Observable<any> {
-    return this.authPost(`${config.api}/movies/auth/register/`, formData);
+    return this.authPost(`${config.api}/movies/auth/register/`, formData)
+      .do(res => this.setToken(res.data));
   }
 
   login(formData: any): Observable<any> {
-    return this.authPost(`${config.api}/movies/auth/login/`, formData);
+    return this.authPost(`${config.api}/movies/auth/login/`, formData)
+      .do(res => this.setToken(res.data));
   }
 
   editProfile(formData: any): Observable<any> {
@@ -68,12 +69,13 @@ export class UserService {
   }
 
   logout(): void {
-    Cookie.delete('token', '/');
+    localStorage.removeItem('token');
+    // Cookie.delete('token', '/');
     this.setUserData();
   }
 
   isAuth(): boolean {
-    const cookieToken = this.getCookieToken();
+    const cookieToken = this.getToken();
     if (cookieToken) {
       return !this.jwtHelper.isTokenExpired(cookieToken);
     } else {
@@ -82,7 +84,7 @@ export class UserService {
   }
 
   getAuthDetails(): any {
-    const cookieToken = this.getCookieToken();
+    const cookieToken = this.getToken();
     if (cookieToken) {
       return this.jwtHelper.decodeToken(cookieToken);
     } else {
@@ -95,7 +97,11 @@ export class UserService {
     this.user = this.getAuthDetails();
   }
 
-  private getCookieToken(): string {
-    return Cookie.get('token');
+  private setToken(token: any): void {
+    localStorage.setItem('token', token);
+  }
+
+  private getToken(): string {
+    return localStorage.getItem('token');
   }
 }

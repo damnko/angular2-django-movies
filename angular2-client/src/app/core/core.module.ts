@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { Http, RequestOptions } from '@angular/http';
-import { Cookie } from 'ng2-cookies';
 
 import {
   NonAuthGuard,
@@ -18,11 +17,14 @@ import { SharedModule } from './../shared/shared.module';
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
     tokenName: 'token',
-    tokenGetter: (() => Cookie.get('token')),
+    // initially considering to store token in cookies with Set-Cookie header
+    // but could not retrieve it when client and server where hosted on different domains
+    // so, reverting to localStorage on final version
+    // tokenGetter: (() => Cookie.get('token')),
     noTokenScheme: true, // otherwise it will put "Bearer " in front of the token
     globalHeaders: [{
       // in order for this to work I had to get the csrf token with APP_INITIALIZER on app.module.ts
-      'X-CSRFToken': Cookie.get('csrftoken'),
+      'X-CSRFToken': localStorage.getItem('csrftoken'),
     }],
   }), http, options);
 }
