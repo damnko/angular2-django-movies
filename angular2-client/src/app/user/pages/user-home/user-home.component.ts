@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-home.component.scss'],
   template: `
     <div fxLayout="row" fxLayoutAlign="center" class="home-wrap">
-      <div fxFlex="30">
+      <div fxFlex="90" fxFlex.gt-sm="40" fxFlex.gt-md="30">
         <router-outlet></router-outlet>
       </div>
     </div>

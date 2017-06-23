@@ -3,15 +3,15 @@
     <h1>{{ (movie$ | async).original_title }}</h1>
   </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px" class="movie-content">
-  <div fxFlex="10" class="left-content">
+<div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center" fxLayoutGap="10px" class="movie-content">
+  <div fxFlex="10" fxHide fxShow.gt-sm class="left-content">
     <img [src]="'https://image.tmdb.org/t/p/w154' + (movie$ | async).poster_path" [alt]="(movie$ | async).original_title">
   </div>
-  <div fxFlex="50" class="main">
+  <div fxFlex.gt-sm="50" fxFlex="100" class="main">
     {{ (movie$ | async).overview }}
     <comments [movieId]="movieId" width="100"></comments>
   </div>
-  <div fxFlex="10" class="specs">
+  <div fxFlex.gt-sm="10" fxFlex="100" class="specs">
     <div *ngIf="movieInternalDetails?.rating.count > 0; else noVotes" class="rating current-rating">
       <span class="rating-avg">
         <i class="fa fa-star" aria-hidden="true"></i> Rating {{ movieInternalDetails?.rating.avg }}/5

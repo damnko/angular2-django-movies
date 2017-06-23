@@ -1,7 +1,10 @@
 <div fxLayout="row">
   <div fxFlex="100">
     <md-toolbar color="primary">
-      <a routerLink="/">Angular2 Django | Movies</a>
+      <a routerLink="/">
+        <span fxHide fxShow.gt-sm>Angular2 Django | Movies</span>
+        <span fxShow fxHide.gt-sm><i class="fa fa-home" aria-hidden="true"></i></span>
+      </a>
       <span class="menu-space-filler"></span>
       <span *ngIf="us.user$ | async; else notAuth">
         Hello <button md-button [mdMenuTriggerFor]="menu">{{ (us.user$ | async).username }} <i class="fa fa-caret-down" aria-hidden="true"></i></button>
@@ -20,7 +23,7 @@
         <a routerLink="user/register/" class="auth-link">Register</a>
         <a routerLink="user/login/" class="auth-link">Login</a>
       </ng-template>
-      <a href="#">
+      <a href="https://github.com/damnko/angular2-django-movies">
         <i class="fa fa-2x fa-github" aria-hidden="true"></i>
       </a>
     </md-toolbar>

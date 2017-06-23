@@ -1,11 +1,15 @@
 <div fxLayout="row" fxLayoutAlign="center">
-  <div fxFlex="70" class="title">
+  <div fxFlex="100" fxFlex.gt-sm="70" class="title">
     <h1>Top 20 Movies in Theaters</h1>
     <h3>since {{ moviesSinceDate | date }}</h3>
   </div>
 </div>
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutWrap="wrap" fxLayoutGap="10px">
-  <md-card fxFlex="15" class="movie-card"
+  <md-card
+    fxFlex="100"
+    fxFlex.gt-xs="30"
+    fxFlex.gt-md="15"
+    class="movie-card"
     *ngFor="let movie of (topMovies$ | async)?.results">
     <loading-spinner *ngIf="movie.detailsLoading" [customStyles]="spinnerStyles"></loading-spinner>
     <div class="img-wrap">
@@ -13,7 +17,7 @@
     </div>
     <md-card-content>
       <h3>{{ movie.title }}</h3>
-      <p>{{ movie.overview }}</p>
+      <p fxHide fxShow.gt-sm>{{ movie.overview }}</p>
       <div fxLayout="row" class="specs">
         <div fxFlex="33.333">
           <i class="fa fa-2x fa-comments" aria-hidden="true"></i><br>
