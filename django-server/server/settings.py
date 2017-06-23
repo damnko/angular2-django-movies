@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'os5^q5qs3%ch()09f7l$sy+p6^mue@+*r(l*hv_5z-87jngttq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False if 'DATABASE_URL' in os.environ else True
 
 ALLOWED_HOSTS = [
     'glacial-shore-18891.herokuapp.com',

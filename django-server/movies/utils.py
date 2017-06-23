@@ -4,7 +4,7 @@ import jwt
 
 
 def create_login_token(data):
-    expiration = datetime.utcnow() + timedelta(seconds=60)
+    expiration = datetime.utcnow() + timedelta(days=30)
     data['exp'] = expiration
     token = jwt.encode(data, settings.JWT_SECRET, algorithm='HS256')
     return {
