@@ -4,6 +4,11 @@
     <h3>since {{ moviesSinceDate | date }}</h3>
   </div>
 </div>
+<div fxLayout="row" *ngIf="!(topMovies$ | async)">
+  <div fxFlex="100" class="text-center">
+    <loading-spinner [topMargin]="false" [backdrop]="false">Loading movies</loading-spinner>
+  </div>
+</div>
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutWrap="wrap" fxLayoutGap="10px">
   <md-card
     fxFlex="100"

@@ -4,8 +4,8 @@ import { Component, Input } from '@angular/core';
   selector: 'loading-spinner',
   styleUrls: ['./loading-spinner.component.scss'],
   template: `
-    <div class="loading-wrap" [ngStyle]="customStyles">
-      <div class="sk-fading-circle">
+    <div class="loading-wrap" [ngStyle]="customStyles" [ngClass]="{backdrop: backdrop}">
+      <div class="sk-fading-circle" [ngClass]="{top: topMargin}">
         <div class="sk-circle1 sk-circle"></div>
         <div class="sk-circle2 sk-circle"></div>
         <div class="sk-circle3 sk-circle"></div>
@@ -19,10 +19,15 @@ import { Component, Input } from '@angular/core';
         <div class="sk-circle11 sk-circle"></div>
         <div class="sk-circle12 sk-circle"></div>
       </div>
+      <div class="loading-text" [ngClass]="{top: topMargin}">
+        <ng-content></ng-content>
+      </div>
     </div>
   `,
 })
 
 export class LoadingSpinnerComponent {
   @Input() customStyles: any;
+  @Input() topMargin: boolean = true;
+  @Input() backdrop: boolean = true;
 }

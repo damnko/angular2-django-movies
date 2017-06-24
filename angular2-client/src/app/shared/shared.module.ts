@@ -12,7 +12,8 @@ import {
   MdListModule,
   MdInputModule,
   MdButtonModule,
-  MdMenuModule
+  MdMenuModule,
+  MdProgressSpinnerModule
 } from '@angular/material';
 
 import {
@@ -32,7 +33,8 @@ const ANGULAR_MATERIAL_COMPONENTS = [
   MdListModule,
   MdInputModule,
   MdButtonModule,
-  MdMenuModule
+  MdMenuModule,
+  MdProgressSpinnerModule
 ];
 
 const COMPONENTS = [

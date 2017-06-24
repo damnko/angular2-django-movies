@@ -17,6 +17,9 @@ body {
 .block {
   display: block;
 }
+.text-center {
+  text-align: center;
+}
 
 snack-bar-container.error {
   background-color: map-get($colors, error);
