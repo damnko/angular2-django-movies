@@ -1,7 +1,6 @@
 language: python
 python:
   - "3.4"
-sudo: required
 before_install:
   # - npm install -g npm
   - nvm install node
@@ -28,6 +27,7 @@ script:
 after_success:
   - echo after_success
   - pwd
+  - firebase -V
   # we currently are in /angular-client dir
   - firebase deploy --token $FIREBASE_API_TOKEN
 before_deploy:

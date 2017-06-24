@@ -18,6 +18,7 @@ def new_movie(request):
     except Exception as e:
         return JsonResponse({
             'status': 'fail',
+            'temp': 'test',
             'data': {
                 'message': str(e) if type(e) == ValueError else 'Error while saving movie'
             }
