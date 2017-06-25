@@ -29,7 +29,7 @@ after_success:
   - pwd
   - firebase -V
   # we currently are in /angular-client dir
-  - firebase deploy --token $FIREBASE_API_TOKEN
+  - firebase deploy --token $FIREBASE_API_TOKEN --non-interactive
 before_deploy:
   - echo before_deploy
   - cd ..
