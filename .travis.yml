@@ -2,7 +2,7 @@ language: python
 python:
   - "3.4"
 before_install:
-  # - npm install -g npm
+  # using nvm to install node since python is set as main language
   - nvm install node
   - npm --version
   # travis specific configuration to convince shell having a screen
@@ -10,31 +10,27 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install:
-  - echo install
-  - pwd
   - cd ./angular2-client
-  - pwd
   - npm install
-  - cd ..
-  - pwd
-  - pip install -r requirements.txt
+  # no need to install python requirements here since they will be installed on Heroku
+  # - cd ../django-server && pip install -r requirements.txt
 before_script:
   - npm install -g firebase-tools
+  # no need to install heroku-cli and plugins since I'll use travis builtin deploy for Heroku
+  # - npm install -g heroku-cli
+  # - heroku plugins:install heroku-builds
 script:
-  - echo script
-  - pwd
-  - cd ./angular2-client && npm run build
+  - cd ../angular2-client && npm run build
 after_success:
-  - echo after_success
-  - pwd
-  - firebase -V
   # we currently are in /angular-client dir
   - firebase deploy --token $FIREBASE_API_TOKEN --non-interactive
+  # this could be useful to manually deploy to Heroku. Using instead Travis builtin deploy method
+  # - cd ../django-server && heroku builds:create -a glacial-shore-18891 --include-vcs-ignore
 before_deploy:
   - echo before_deploy
-  - cd ..
+  # - cd ..
   - pwd
-  - cd ./django-server
+  - cd ../django-server
 deploy:
   provider: heroku
   api_key: $HEROKU_API_KEY
