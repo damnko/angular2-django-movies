@@ -95,7 +95,6 @@ def movies_summary(request):
 
     return JsonResponse({
         'status': 'success',
-        'test': 'ok',
         'data': {
             'movies': movies
         }

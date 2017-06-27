@@ -27,9 +27,6 @@ after_success:
   # this could be useful to manually deploy to Heroku. Using instead Travis builtin deploy method
   # - cd ../django-server && heroku builds:create -a glacial-shore-18891 --include-vcs-ignore
 before_deploy:
-  - echo before_deploy
-  # - cd ..
-  - pwd
   - cd ../django-server
 deploy:
   provider: heroku

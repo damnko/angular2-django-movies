@@ -1,4 +1,5 @@
 # Angular2 Django | Movies
+[![Build Status][build-badge]][build-link]
 [![License][licence-badge]](/LICENSE)
 
 <p align="center">
@@ -49,7 +50,7 @@ $ source venv/bin/activate
 ```
 Then you can install all the required dependencies:
 ```sh
-$ pip install -r requirements.txt
+$ pip install -r ./django-server/requirements.txt
 ```
 
 ### Setting up MySQL
@@ -72,3 +73,5 @@ $ sudo apt-get install python-dev mysql-server libmysqlclient-dev
 MIT © [damnko](https://github.com/damnko)
 
 [licence-badge]: https://img.shields.io/npm/l/express.svg
+[build-badge]: https://travis-ci.org/damnko/angular2-feed-me.png?branch=master
+[build-link]: https://travis-ci.org/damnko/angular2-feed-me
