@@ -5,7 +5,7 @@ cement==2.8.2
 certifi==2017.4.17
 chardet==3.0.4
 colorama==0.3.7
-Django==1.11.2
+Django==1.11.29
 django-cors-headers==2.1.0
 docker-py==1.7.2
 dockerpty==0.4.1
