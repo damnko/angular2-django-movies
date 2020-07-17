@@ -93,7 +93,7 @@
     "angular2-jwt": "^0.2.3",
     "font-awesome": "^4.7.0",
     "http-server": "^0.10.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "moment": "^2.18.1",
     "ng2-cookies": "^1.0.12",
     "ngx-pagination": "^3.0.0"
